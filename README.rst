@@ -16,14 +16,14 @@ Requirements
 Install
 -------
 
-- Install module: `pip install django-rules-light`,
-- Add to `settings.INSTALLED_APPS`: `rules_light`,
-- Add in `urls.py`: `rules_light.autodiscover()`,
+- Install module: ``pip install django-rules-light``,
+- Add to ``settings.INSTALLED_APPS``: ``rules_light``,
+- Add in ``urls.py``: ``rules_light.autodiscover()``,
 
 Usage
 -----
 
-In your app, create `rules_light_registry.py`, simple example:
+In your app, create ``rules_light_registry.py``, simple example::
 
     import rules_light
 
@@ -36,20 +36,20 @@ In your app, create `rules_light_registry.py`, simple example:
     rules_light.register('form_designer.form.update',
         lambda user, perm, form: user == form.author)
 
-Note that `rules_light.autodiscover()` imports `rules_light_registry.py` from
+Note that ``rules_light.autodiscover()`` imports ``rules_light_registry.py`` from
 the first to the last app. Suppose that you want to **forbid** users from
 creating a form - because forms should be created programatically - then you
-could:
+could::
 
     rules_light.unregister()
     rules_light.register('form_designer.form.create', False)
 
-Or use the `reregistrer()` shortcut:
+Or use the ``reregistrer()`` shortcut::
 
     rules_light.reregister('form_designer.form.create', False)
 
 Using a simple decorator to do the obvious thing, check for
-`form_designer.form.create` in a `CreateView` that has `model=Form`, DRY:
+``form_designer.form.create`` in a ``CreateView`` that has ``model=Form``, DRY::
 
     # This decorator is not bulletproof, but will work with common cases
     @rules_light.decorator
@@ -59,11 +59,11 @@ Using a simple decorator to do the obvious thing, check for
         form_class = FormCreateForm
 
 We can also override the default permission it would check. For example, we're
-using a DetailView with `post()` for updates, instead of a classic UpdateView.
+using a DetailView with ``post()`` for updates, instead of a classic UpdateView.
 This allows us to have a nice ajax-ish interface.
 
-Anyway, the decorator would check for `form_designer.form.read` (if it has been
-defined) by default for a DetailView, let's override that:
+Anyway, the decorator would check for ``form_designer.form.read`` (if it has been
+defined) by default for a DetailView, let's override that::
 
     @rules_light.decorator('form_designer.form.update')
     class FormUpdateView(generic.DetailView):
@@ -72,11 +72,13 @@ defined) by default for a DetailView, let's override that:
         def post(self, request, *args, **kwargs):
             # [...] ajax stuff :)
 
-If a user has permission to modify a form, then he should be able to create, modify and delete widgets of that form. That's kind of indirect so we can't use a decorator, let's just use `rules_light.require()` instead:
+If a user has permission to modify a form, then he should be able to create,
+modify and delete widgets of that form. That's kind of indirect so we can't use
+a decorator, let's just use ``rules_light.require()`` instead::
 
     class WidgetSecurity(object):
         """
-        Decorate `get_object()`, to test if user has update permission on the form.
+        Decorate ``get_object()``, to test if user has update permission on the form.
         """
         def get_object(self):
             widget = super(WidgetSecurity, self).get_object()
