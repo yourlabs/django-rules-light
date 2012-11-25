@@ -29,24 +29,27 @@ In your app, create ``rules_light_registry.py``, simple example::
 
     # Allow all users to create a form by default, the point of having that is
     # to allow a project that uses form_designer to change this rule.
-    rules_light.register('form_designer.form.create', True)
+    rules_light.registry.setdefault('form_designer.form.create', True)
 
     # The callback takes the user as first argument, permission as second, then
     # args and kwargs which leaves you completely free:
-    rules_light.register('form_designer.form.update',
-        lambda user, perm, form: user == form.author)
+    rules_light.registry.setdefault('form_designer.form.update', 
+        lambda u, n, f: user == f.author)
 
-Note that ``rules_light.autodiscover()`` imports ``rules_light_registry.py`` from
-the first to the last app. Suppose that you want to **forbid** users from
-creating a form - because forms should be created programatically - then you
-could::
+The first thing you should note is that ``rules_light.registry`` is a simple
+python dictionnary. This keeps everything simple and lightweight.
 
-    rules_light.unregister()
-    rules_light.register('form_designer.form.create', False)
 
-Or use the ``reregistrer()`` shortcut::
+Also note that we're using the standard dictionnary ``setdefault()`` method.
+This allows your app to set the default condition for a rule, which can be
+easily overridden at project level before or after this code is ran by
+``autodiscover()`` as such::
 
-    rules_light.reregister('form_designer.form.create', False)
+    def user_in_app_maitainers(user, rule, form):
+        return user in form.appform.app.maintainers
+
+    rules_light.registry['form_designer.form.update'] = user_in_app_maitainers
+
 
 Using a simple decorator to do the obvious thing, check for
 ``form_designer.form.create`` in a ``CreateView`` that has ``model=Form``, DRY::
