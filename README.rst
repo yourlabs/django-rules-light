@@ -1,4 +1,4 @@
-.. image:: https://secure.travis-ci.org/yourlabs/django-rules-light.png?branch=master
+.. image:: https://secure.travis-ci.org/jpic/django-rules-light.png?branch=master
 
 This is a simple alternative to django-rules. The core difference is that
 it uses as registry that can be modified on runtime, instead of database
@@ -183,7 +183,7 @@ package updates.
   <http://groups.google.com/group/yourlabs>`_ by `Google
   <http://groups.google.com>`_
 - `Git graciously hosted
-  <https://github.com/yourlabs/django-rules-light/>`_ by `GitHub
+  <https://github.com/jpic/django-rules-light/>`_ by `GitHub
   <http://github.com>`_,
 - `Documentation graciously hosted
   <http://django-rules-light.rtfd.org>`_ by `RTFD
