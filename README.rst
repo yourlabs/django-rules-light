@@ -22,6 +22,19 @@ The design is simple:
 
 That's all folks !
 
+What's the catch ?
+------------------
+
+The catch is that this approach does not offer any feature to get secure
+querysets.
+
+This means that the developper has to:
+
+- think about security when making querysets,
+- `override
+  <http://blog.yourlabs.org/post/19777151073/how-to-override-a-view-from-an-external-django-app>`_
+  eventual external app ListViews,
+
 Requirements
 ------------
 
