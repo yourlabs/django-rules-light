@@ -126,6 +126,7 @@ def autodiscover():
             lambda user, rulename, country: user.is_staff)
 
     When autodiscover() imports cities_light.rules_light_registry, both
-    `'cities_light.city.read'` and `'cities_light.city.update'` will be registered.
+    `'cities_light.city.read'` and `'cities_light.city.update'` will be
+    registered.
     """
     _autodiscover(registry)
