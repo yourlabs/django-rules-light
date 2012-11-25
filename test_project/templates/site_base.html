@@ -1,3 +1,5 @@
+{% load i18n %}
+{% load url from future %}
 <html>
     <head>
         <title>{% block head_title %}{% endblock %}</title>
@@ -6,10 +8,21 @@
         {% endblock %}
     </head>
     <body>
+        <p>
+        {% if request.user.is_authenticated %}
+            Authenticated as {{ request.user }}. 
+            <a href="{% url 'login' %}">{% trans 'Login again' %}</a>
+            or
+            <a href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+        {% else %}
+            <b>Not</b> authenticated. 
+            <a href="{% url 'login' %}">{% trans 'Login' %}</a>
+        {% endif %}
+        </p>
+
         {% block body %}
         {% endblock %}
 
-        <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
 
