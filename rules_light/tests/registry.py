@@ -17,12 +17,12 @@ class RegistryTestCase(unittest.TestCase):
         self.registry['x.y.z'] = mock
 
         self.registry.logger.debug.assert_called_once_with(
-            u'"x.y.z" registered with: %s' % unicode(mock))
+            u'[rules_light] "x.y.z" registered with: %s' % unicode(mock))
 
         result = self.registry.run(self.user, 'x.y.z')
 
         self.registry.logger.info.assert_called_once_with(
-            u'%s(test, "x.y.z") passed' % unicode(mock))
+            u'[rules_light] %s(test, "x.y.z") passed' % unicode(mock))
 
         self.assertEqual(result, True)
         mock.assert_called_once_with(self.user, 'x.y.z')
@@ -34,7 +34,7 @@ class RegistryTestCase(unittest.TestCase):
         result = self.registry.run(self.user, 'x.y.z', 'foo', x='bar')
 
         self.registry.logger.info.assert_called_once_with(
-            u'%s(test, "x.y.z", *(\'foo\',), **{\'x\': \'bar\'}) passed' % \
+            u'[rules_light] %s(test, "x.y.z", *(\'foo\',), **{\'x\': \'bar\'}) passed' % \
                 mock)
 
         self.assertEqual(result, True)
@@ -48,7 +48,7 @@ class RegistryTestCase(unittest.TestCase):
             self.registry.require(self.user, 'x.y.z')
 
         self.registry.logger.warn.assert_called_once_with(
-            u'Deny %s(test, "x.y.z")' % unicode(mock))
+            u'[rules_light] Deny %s(test, "x.y.z")' % unicode(mock))
 
     def test_return_False(self):
         mock = Mock(return_value=None)
@@ -56,7 +56,7 @@ class RegistryTestCase(unittest.TestCase):
 
         self.assertFalse(self.registry.run(self.user, 'x.y.z'))
         self.registry.logger.info.assert_called_once_with(
-            u'%s(test, "x.y.z") failed' % unicode(mock))
+            u'[rules_light] %s(test, "x.y.z") failed' % unicode(mock))
 
     def test_raises_RuleDoesNotExist(self):
         with self.assertRaises(rules_light.DoesNotExist) as cm:

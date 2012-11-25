@@ -11,7 +11,8 @@ class RuleRegistry(dict):
 
     def __setitem__(self, key, value):
         super(RuleRegistry, self).__setitem__(key, value)
-        self.logger.debug(u'"%s" registered with: %s' % (key, value))
+        self.logger.debug(u'[rules_light] "%s" registered with: %s' % (
+            key, value))
 
     def run(self, user, name, *args, **kwargs):
         if name not in self:
@@ -26,10 +27,10 @@ class RuleRegistry(dict):
 
         text = self.as_text(user, name, *args, **kwargs)
         if result:
-            self.logger.info(u'%s passed' % text)
+            self.logger.info(u'[rules_light] %s passed' % text)
             return True
         else:
-            self.logger.info(u'%s failed' % text)
+            self.logger.info(u'[rules_light] %s failed' % text)
             return False
 
     def require(self, user, name, *args, **kwargs):
@@ -37,7 +38,7 @@ class RuleRegistry(dict):
 
         if not result:
             text = self.as_text(user, name, *args, **kwargs)
-            self.logger.warn(u'Deny %s' % text)
+            self.logger.warn(u'[rules_light] Deny %s' % text)
             raise Denied(text)
 
     def as_text(self, user, name, *args, **kwargs):
@@ -59,7 +60,6 @@ class RuleRegistry(dict):
                     self[name], user, name, kwargs)
         else:
             return u'%s is %s' % (name, self[name])
-
 
 
 registry = RuleRegistry()
