@@ -7,6 +7,21 @@ models.
 The goal is to enable developpers of external apps to make rules, depend
 on it, while allowing a project to override rules.
 
+The design is simple:
+
+- A global rule registry which is a dict with a couple af methods to proxy the
+  rules: ``run()`` executes a rule and ``require()`` which does the same but
+  raises ``Denied`` if ``run()`` returns ``False``,
+- As a dict, it makes it easy to override, cook or monkey patch if you really
+  need it,
+- A view class decorator to take shortcuts,
+- A ``process_exception`` middleware that can serve for starters or as an
+  example,
+- Two things make it easy to work with: a view that allows to browse the
+  registry and several logging levels,
+
+That's all folks !
+
 Requirements
 ------------
 
@@ -22,6 +37,9 @@ Install
 
 Usage
 -----
+
+Declaring rules
+>>>>>>>>>>>>>>>
 
 In your app, create ``rules_light_registry.py``, simple example::
 
@@ -39,6 +57,8 @@ In your app, create ``rules_light_registry.py``, simple example::
 The first thing you should note is that ``rules_light.registry`` is a simple
 python dictionnary. This keeps everything simple and lightweight.
 
+Overriding rules
+>>>>>>>>>>>>>>>>
 
 Also note that we're using the standard dictionnary ``setdefault()`` method.
 This allows your app to set the default condition for a rule, which can be
@@ -50,6 +70,11 @@ easily overridden at project level before or after this code is ran by
 
     rules_light.registry['form_designer.form.update'] = user_in_app_maitainers
 
+Using rules
+>>>>>>>>>>>
+
+Decorator
+<<<<<<<<<
 
 Using a simple decorator to do the obvious thing, check for
 ``form_designer.form.create`` in a ``CreateView`` that has ``model=Form``, DRY::
@@ -75,6 +100,9 @@ defined) by default for a DetailView, let's override that::
         def post(self, request, *args, **kwargs):
             # [...] ajax stuff :)
 
+Require
+<<<<<<<
+
 If a user has permission to modify a form, then he should be able to create,
 modify and delete widgets of that form. That's kind of indirect so we can't use
 a decorator, let's just use ``rules_light.require()`` instead::
@@ -97,6 +125,40 @@ a decorator, let's just use ``rules_light.require()`` instead::
 
     class WidgetDeleteView(PkUrlKwarg, WidgetSecurity, AjaxDeleteView):
         pass
+
+Manifesto
+---------
+
+Sorry if this is too simple or stupid but I'm pretty sure it's better to use
+this rather than to hardcode security constraints in my apps ``django-apstore``
+and ``django-form-designer`` which will be open sourced in a little while.
+
+One day, I asked for help on IRC on a crappy piece of code. Some hacker "hurt
+my feelings" about it and I decided that my days writing crappy code were over.
+
+One of the decisions I took was that my private projects should never be a
+dependency for an app. Every app that I code should be of open-source-able
+quality, and make sense on it's own.
+
+This is how django-cities-light and django-autocomplete-light were born.
+
+Then, I was asked to code an appstore which allows admin to create apps, where
+one app=one form. So I coded django-appstore and django-form-designer (still
+closed source) apart, each with it's own test_project.
+
+Of course, I started with simple security:
+
+- in django-form-designer, check if ``request.user == form.author`` in
+  ``FormUpdateView``,
+- in django-appstore, check something like ``request.user == app.author``,
+
+When I came to code ``appstore.contrib.form_designer_appeditor``, the app that
+couples django-appstore and django-form-designer, I figured that this would
+require to add code to sync ``app.author`` and ``form.author``. Which seemed
+ugly. Also, considering the number of security rules that my project require,
+it was time to factor out the security constraints.
+
+django-rules-light is born.
 
 Resources
 ---------
