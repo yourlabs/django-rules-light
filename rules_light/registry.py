@@ -71,3 +71,61 @@ def run(user, name, *args, **kwargs):
 
 def require(user, name, *args, **kwargs):
     registry.require(user, name, *args, **kwargs)
+
+
+def _autodiscover(registry):
+    """See documentation for autodiscover (without the underscore)"""
+    import copy
+    from django.conf import settings
+    from django.utils.importlib import import_module
+    from django.utils.module_loading import module_has_submodule
+
+    for app in settings.INSTALLED_APPS:
+        mod = import_module(app)
+        # Attempt to import the app's admin module.
+        try:
+            before_import_registry = copy.copy(registry)
+            import_module('%s.rules_light_registry' % app)
+        except:
+            # Reset the model registry to the state before the last import as
+            # this import will have to reoccur on the next request and this
+            # could raise NotRegistered and AlreadyRegistered exceptions
+            # (see #8245).
+            registry = before_import_registry
+
+            # Decide whether to bubble up this error. If the app just
+            # doesn't have an admin module, we can ignore the error
+            # attempting to import it, otherwise we want it to bubble up.
+            if module_has_submodule(mod, 'rules_light_registry'):
+                raise
+
+
+def autodiscover():
+    """
+    Check all apps in INSTALLED_APPS for stuff related to rules_light.
+
+    For each app, autodiscover imports app.rules_light_registry if
+    available, resulting in execution of ``rules_light.registry[...] = ...``
+    statements in that module, filling registry.
+
+    Consider a standard app called 'cities_light' with such a structure::
+
+        cities_light/
+            __init__.py
+            models.py
+            urls.py
+            views.py
+            rules_light_registry.py
+
+    With such a rules_light_registry.py::
+
+        import rules_light
+
+        rules_light.register('cities_light.city.read', True)
+        rules_light.register('cities_light.city.update',
+            lambda user, rulename, country: user.is_staff)
+
+    When autodiscover() imports cities_light.rules_light_registry, both
+    `'cities_light.city.read'` and `'cities_light.city.update'` will be registered.
+    """
+    _autodiscover(registry)
