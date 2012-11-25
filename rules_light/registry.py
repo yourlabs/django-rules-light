@@ -1,5 +1,8 @@
 from exceptions import Denied, DoesNotExist
 
+__all__ = ('RuleRegistry', 'registry', 'require', 'run')
+
+
 class RuleRegistry(dict):
     def run(self, user, name, *args, **kwargs):
         if name not in self:
@@ -24,3 +27,11 @@ class RuleRegistry(dict):
             raise Denied(self[name], user, name, *args, **kwargs)
 
 registry = RuleRegistry()
+
+
+def run(user, name, *args, **kwargs):
+    return registry.run(user, name, *args, **kwargs)
+
+
+def require(user, name, *args, **kwargs):
+    registry.require(user, name, *args, **kwargs)

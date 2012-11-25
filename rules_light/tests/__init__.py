@@ -1,3 +1,2 @@
 from registry import RegistryTestCase
-from decorator import DecoratorTestCase
-from rule_check import RuleCheckTestCase
+from class_decorator import DecoratorTestCase
