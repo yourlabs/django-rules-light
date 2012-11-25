@@ -1,3 +1,8 @@
+"""
+The rule registry is in charge of keeping and executing security rules.
+
+It is the core of this app, everything else is optionnal.
+"""
 import logging
 
 from exceptions import Denied, DoesNotExist
