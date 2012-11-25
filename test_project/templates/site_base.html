@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>{% block head_title %}{% endblock %}</title>
+        <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" />
+        {% block extra_head %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+        {% endblock %}
+
+        <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
+
+        {% block extra_body %}
+        {% endblock %}
+    </body>
+</html>
