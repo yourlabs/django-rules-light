@@ -4,14 +4,8 @@ class RulesLightException(Exception):
 
 
 class Denied(RulesLightException):
-    def __init__(self, rule, user, name, *args, **kwargs):
-        if hasattr(rule, '__call__'):
-            msg = u'%s(%s, %s, %s, %s) evaluates to False' % (
-                rule, user, name, args, kwargs)
-        else:
-            msg = u'%s is %s' % (name, rule)
-
-        super(Denied, self).__init__(msg)
+    def __init__(self, rule_text):
+        super(Denied, self).__init__(u'%s evaluates to False' % rule_text)
 
 
 class DoesNotExist(RulesLightException):
