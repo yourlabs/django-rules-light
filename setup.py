@@ -26,7 +26,7 @@ class RunTests(Command):
         settings_file = os.environ["DJANGO_SETTINGS_MODULE"]
         settings_mod = __import__(settings_file, {}, {}, [''])
         execute_manager(settings_mod, argv=[
-            __file__, "test", "appstore"])
+            __file__, "test", "rules_light"])
         os.chdir(this_dir)
 
 
@@ -43,7 +43,7 @@ setup(
     zip_safe=False,
     long_description=read('README.rst'),
     license='MIT',
-    keywords='django appstore',
+    keywords='django security rules acl rbac',
     install_requires=[
         'django',
     ],
