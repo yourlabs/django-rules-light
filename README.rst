@@ -36,6 +36,9 @@ Quick Install
 - Add in ``settings.MIDDLEWARE_CLASSES``: ``rules_light.middleware.Middleware``,
 - Add in ``urls.py``: ``rules_light.autodiscover()``,
 
+You might want to read the `tutorial
+<https://django-rules-light.readthedocs.org/en/latest/tutorial.html>`_.
+
 Resources
 ---------
 
