@@ -32,3 +32,10 @@ def is_staff(user, rulename, *args, **kwargs):
             lambda: user, rulename, *args, **kwargs: user.is_staff)
     """
     return user.is_staff
+
+
+def is_authenticated(user, rulename, *args, **kwargs):
+    """
+    Return user.is_authenticated().
+    """
+    return user.is_authenticated()
