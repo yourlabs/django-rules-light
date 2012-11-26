@@ -67,14 +67,14 @@ class class_decorator(object):
         if issubclass(cls, generic.CreateView):
             old_get_form = cls.get_form
 
-            def new_get_form(self, *args, **kwargs):
+            def new_get_form(self, form_class, *args, **kwargs):
                 model = form_class.Meta.model
                 rule_name = '%s.%s.create' % (model._meta.app_label,
                     model._meta.module_name)
 
                 registry.require(self.request.user, rule_name)
 
-                return old_get_form(self, *args, **kwargs)
+                return old_get_form(self, form_class, *args, **kwargs)
 
             cls.get_form = new_get_form
 
