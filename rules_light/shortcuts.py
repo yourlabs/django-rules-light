@@ -16,6 +16,7 @@ You can reuse your rules several times in standard python::
 This module provides some shortcut(s).
 """
 
+
 def is_staff(user, rulename, *args, **kwargs):
     """
     Return True if user.is_staff.
