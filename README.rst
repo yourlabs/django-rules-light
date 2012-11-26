@@ -10,7 +10,7 @@ on it, while allowing a project to override rules.
 Example ``your_app/rules_light_registry.py``::
 
     # Everybody can create or read a blog post (for now!):
-    rules_light.registry['blog.post.create'] = True
+    rules_light.registry['blog.post.read'] = True
 
     # Require authentication to create a blog post, using a shortcut:
     rules_light.registry['blog.post.create'] = rules_light.is_authenticated
