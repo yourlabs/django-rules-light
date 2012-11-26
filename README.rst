@@ -9,13 +9,39 @@ on it, while allowing a project to override rules.
 
 Example ``your_app/rules_light_registry.py``::
 
-    rules_light.registry['your_model.your_app.create'] = rules_light.is_staff
+    # Everybody can create or read a blog post (for now!):
+    rules_light.registry['blog.post.create'] = True
+
+    # Require authentication to create a blog post, using a shortcut:
+    rules_light.registry['blog.post.create'] = rules_light.is_authenticated
+
+    def is_staff_or_mine(user, rule, obj):
+        if user.is_staff:
+            return True
+
+        return obj.author == user
+    
+    # But others shouldn't mess with my posts !
+    rules_light.registry['blog.post.update'] = is_staff_or_mine
+    rules_light.registry['blog.post.delete'] = is_staff_or_mine
 
 Example ``your_app/views.py``::
 
     @rules_light.class_decorator
-    class YourModelCreateView(generic.CreateView):
-        model = YourModel
+    class PostDetailView(generic.DetailView):
+        model = Post
+     
+    @rules_light.class_decorator
+    class PostCreateView(generic.CreateView):
+        model = Post
+     
+    @rules_light.class_decorator
+    class PostUpdateView(generic.UpdateView):
+        model = Post
+   
+    @rules_light.class_decorator
+    class PostDeleteView(generic.DeleteView):
+        model = Post
 
 You might want to read the `tutorial
 <https://django-rules-light.readthedocs.org/en/latest/tutorial.html>`_ for
