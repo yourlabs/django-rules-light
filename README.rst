@@ -19,6 +19,7 @@ Example ``your_app/views.py``::
 
 You might want to read the `tutorial
 <https://django-rules-light.readthedocs.org/en/latest/tutorial.html>`_ for
+more.
 
 What's the catch ?
 ------------------
