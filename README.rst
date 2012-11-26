@@ -7,18 +7,6 @@ models.
 One of the goal is to enable developpers of external apps to make rules, depend
 on it, while allowing a project to override rules.
 
-The design is simple:
-
-- A global rule registry which is a dict with a couple af methods to proxy the
-  rules: ``run()`` executes a rule and ``require()`` which does the same but
-  raises ``Denied`` if ``run()`` returns ``False``. As a dict, it makes it easy
-  to override, cook or monkey patch if you really need it,
-- A view class decorator to take shortcuts,
-- A ``process_exception`` middleware that can serve for starters or as an
-  example,
-- Two things make it easy to work with: a view that allows to browse the
-  registry and several logging levels.
-
 That's all folks !
 
 What's the catch ?

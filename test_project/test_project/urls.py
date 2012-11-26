@@ -5,10 +5,9 @@ from django.contrib.auth.models import User
 import rules_light
 # not need in this particular project ... oh well it'll serve as example
 rules_light.autodiscover()
+# import our project specific rules
+import auth_rules
 
-# because we define project-specific rules here for the sake of the example
-rules_light.registry['auth.user.read'] = True
-rules_light.registry['auth.user.update'] = lambda user, *args: user.is_staff
 
 from django.contrib import admin
 

@@ -1,3 +1,4 @@
 from registry import RegistryTestCase
 from class_decorator import DecoratorTestCase
 from autodiscover import AutodiscoverTestCase
+from views import ViewsTestCase

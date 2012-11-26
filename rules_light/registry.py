@@ -2,24 +2,43 @@
 The rule registry is in charge of keeping and executing security rules.
 
 It is the core of this app, everything else is optionnal.
+
+This module provides a variable, ``registry``, which is just a module-level,
+default RuleRegistry instance.
+
+A rule can be a callback or a variable that will be evaluated as bool.
 """
 import logging
 
 from exceptions import Denied, DoesNotExist
 
-__all__ = ('RuleRegistry', 'registry', 'require', 'run')
+__all__ = ('RuleRegistry', 'registry', 'require', 'run', 'autodiscover')
 
 
 class RuleRegistry(dict):
+    """
+    Dict subclass to manage rules.
+
+    logger
+        The standard logging logger instance to use.
+    """
     def __init__(self):
         self.logger = logging.getLogger('rules_light')
 
     def __setitem__(self, key, value):
+        """
+        Adds a debug-level log on registration.
+        """
         super(RuleRegistry, self).__setitem__(key, value)
         self.logger.debug(u'[rules_light] "%s" registered with: %s' % (
             key, value))
 
     def run(self, user, name, *args, **kwargs):
+        """
+        Run a rule, return True if whatever it returns evaluates to True.
+
+        Also logs calls with the info-level.
+        """
         if name not in self:
             raise DoesNotExist(name)
 
@@ -39,6 +58,11 @@ class RuleRegistry(dict):
             return False
 
     def require(self, user, name, *args, **kwargs):
+        """
+        Run a rule, raise ``rules_light.Denied`` if returned False.
+
+        Log denials with warn-level.
+        """
         result = self.run(user, name, *args, **kwargs)
 
         if not result:
@@ -47,6 +71,7 @@ class RuleRegistry(dict):
             raise Denied(text)
 
     def as_text(self, user, name, *args, **kwargs):
+        """ Format a rule to be human readable for logging """
         if name not in self:
             raise DoesNotExist(name)
 
@@ -71,10 +96,12 @@ registry = RuleRegistry()
 
 
 def run(user, name, *args, **kwargs):
+    """ Proxy ``rules_light.registry.run()``. """
     return registry.run(user, name, *args, **kwargs)
 
 
 def require(user, name, *args, **kwargs):
+    """ Proxy ``rules_light.registry.require()``. """
     registry.require(user, name, *args, **kwargs)
 
 
@@ -109,7 +136,7 @@ def autodiscover():
     """
     Check all apps in INSTALLED_APPS for stuff related to rules_light.
 
-    For each app, autodiscover imports app.rules_light_registry if
+    For each app, autodiscover imports ``app.rules_light_registry`` if
     available, resulting in execution of ``rules_light.registry[...] = ...``
     statements in that module, filling registry.
 

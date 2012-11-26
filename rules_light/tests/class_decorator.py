@@ -7,30 +7,7 @@ from django.contrib.auth.models import User
 import rules_light
 from ..views import RegistryView
 
-
-@rules_light.class_decorator
-class CreateView(generic.CreateView):
-    model = User
-
-
-@rules_light.class_decorator
-class UpdateView(generic.UpdateView):
-    model = User
-
-
-@rules_light.class_decorator
-class DetailView(generic.DetailView):
-    model = User
-
-
-@rules_light.class_decorator
-class DeleteView(generic.DeleteView):
-    model = User
-
-
-@rules_light.class_decorator('funny')
-class FunnyUpdateView(generic.UpdateView):
-    model = User
+from class_decorator_classes import *
 
 
 class DecoratorTestCase(unittest.TestCase):
@@ -97,13 +74,17 @@ class DecoratorTestCase(unittest.TestCase):
         view(self.request, pk=1)
 
     def test_dispatch_decorator(self):
-        rules_light.registry['rules_light.rule.read'] = False
-        view = RegistryView.as_view()
+        rules_light.registry['foo'] = False
+
+        @rules_light.class_decorator('foo')
+        class MyView(generic.View):
+            pass
+        view = MyView.as_view()
 
         with self.assertRaises(rules_light.Denied) as cm:
             view(self.request)
 
-        rules_light.registry['rules_light.rule.read'] = True
+        rules_light.registry['foo'] = True
         # it should not raise an exception
         view(self.request)
 

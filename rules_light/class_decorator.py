@@ -1,3 +1,7 @@
+"""
+
+"""
+
 from django.views import generic
 
 from exceptions import RulesLightException
@@ -29,6 +33,23 @@ def patch_get_object(cls, suffix, override):
 
 
 class class_decorator(object):
+    """
+    Can be used to secure class based views.
+
+    If the view has ``model=YourModel``, it will support:
+
+    - ``CreateView``, it will decorate ``get_form()``, to run
+      ``rules_light.require('yourapp.yourmodel.create')``,
+    - ``UpdateView``, it will decorate ``get_object()``, to run
+      ``rules_light.require('yourapp.yourmodel.update', obj)``,
+    - ``DeleteView``, it will decorate ``get_object()``, to run
+      ``rules_light.require('yourapp.yourmodel.delete', obj)``,
+    - ``DetailView``, it will decorate ``get_object()``, to run
+      ``rules_light.require('yourapp.yourmodel.read', obj)``,
+    - others views, if the rule name is specified in the decorator for example
+      ``@class_decorator('some_rule')``, then it will decorate ``dispatch()``,
+    - Else it raises an exception.
+    """
     rule = None
 
     def __new__(self, *args):
