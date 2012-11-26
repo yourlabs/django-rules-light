@@ -39,6 +39,9 @@ Quick Install
 You might want to read the `tutorial
 <https://django-rules-light.readthedocs.org/en/latest/tutorial.html>`_.
 
+There is also a lot of documentation, from the core to the tools, including
+pointers to debug, log and test your security.
+
 Resources
 ---------
 
