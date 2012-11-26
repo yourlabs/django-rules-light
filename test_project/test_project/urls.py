@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth/', include('django.contrib.auth.urls')),
+    url(r'^rules/', include('rules_light.urls')),
 
     url(r'^$', generic.ListView.as_view(model=User), name='auth_user_list'),
     url(r'user/(?P<username>[\w_-]+)/$',

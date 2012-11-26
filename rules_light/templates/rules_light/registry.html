@@ -1,0 +1,21 @@
+{% extends 'rules_light/base.html' %}
+
+{% load rules_light_tags %}
+
+{% block body %}
+<script type="text/javascript" src="{{ STATIC_URL }}rules_light/rainbow-custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}rules_light/github.css" />
+
+<table>
+    {% for name, rule in registry.items %}
+    <tr>
+        <td>
+            <pre>{{ name }}</pre>
+        </td>
+        <td>
+            <pre><code data-language="python">{{ registry|rule_code:name }}</code></pre>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

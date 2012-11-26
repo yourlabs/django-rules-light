@@ -5,6 +5,7 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import User
 
 import rules_light
+from ..views import RegistryView
 
 
 @rules_light.class_decorator
@@ -27,12 +28,7 @@ class DeleteView(generic.DeleteView):
     model = User
 
 
-@rules_light.class_decorator
-class ListView(generic.ListView):
-    model = User
-
-
-@rules_light.class_decorator('auth.user.update')
+@rules_light.class_decorator('funny')
 class FunnyUpdateView(generic.UpdateView):
     model = User
 
@@ -87,7 +83,7 @@ class DecoratorTestCase(unittest.TestCase):
         view(self.request, pk=1)
 
     def test_funny_view_decorator(self):
-        rules_light.registry['auth.user.update'] = False
+        rules_light.registry['funny'] = False
         # ensure that it would not raise an exception if it tried
         # auth.user.read
         rules_light.registry['auth.user.read'] = True
@@ -96,6 +92,23 @@ class DecoratorTestCase(unittest.TestCase):
         with self.assertRaises(rules_light.Denied) as cm:
             view(self.request, pk=1)
 
-        rules_light.registry['auth.user.update'] = True
+        rules_light.registry['funny'] = True
         # it should not raise an exception
         view(self.request, pk=1)
+
+    def test_dispatch_decorator(self):
+        rules_light.registry['rules_light.rule.read'] = False
+        view = RegistryView.as_view()
+
+        with self.assertRaises(rules_light.Denied) as cm:
+            view(self.request)
+
+        rules_light.registry['rules_light.rule.read'] = True
+        # it should not raise an exception
+        view(self.request)
+
+    def test_fail(self):
+        with self.assertRaises(rules_light.RulesLightException) as cm:
+            @rules_light.class_decorator
+            class MyView(generic.View):
+                pass

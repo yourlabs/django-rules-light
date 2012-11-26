@@ -1,6 +1,5 @@
 {% extends 'site_base.html' %}
 {% load url from future %}
-{% load rules_light_tags %}
 
 {% block body %}
 <h1>Welcome to django-rules-light test project</h1>
@@ -10,7 +9,7 @@ List of users:
 {% for user in object_list %}
     <li>
         <a href="{% url 'auth_user_detail' user.username %}">{{ user }}</a>
-        <a href="{% url 'auth_user_update' user.username %}">update</a> You do {% if not request.user|run_rule:'auth.user.update' %}<b>not</b>{% endif %} have permission.
+        <a href="{% url 'auth_user_update' user.username %}">update</a>
     </li>
 {% endfor %}
 </ul>
