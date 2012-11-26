@@ -45,7 +45,7 @@ Install
 
 - Install module: ``pip install django-rules-light``,
 - Add to ``settings.INSTALLED_APPS``: ``rules_light``,
-- Add in ``settings.MIDDLEWARE_CLASSES``: ``rules_light.middleware.DenialHandlingMiddleware``,
+- Add in ``settings.MIDDLEWARE_CLASSES``: ``rules_light.middleware.Middleware``,
 - Add in ``urls.py``: ``rules_light.autodiscover()``,
 
 Usage

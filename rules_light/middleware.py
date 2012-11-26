@@ -5,7 +5,7 @@ from django.conf import settings
 from exceptions import RulesLightException, Denied, DoesNotExist
 
 
-class DenialHandlingMiddleware(object):
+class Middleware(object):
     def process_exception(self, request, exception):
         if not isinstance(exception, RulesLightException):
             return
