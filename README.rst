@@ -7,7 +7,18 @@ models.
 One of the goal is to enable developpers of external apps to make rules, depend
 on it, while allowing a project to override rules.
 
-That's all folks !
+Example ``your_app/rules_light_registry.py``::
+
+    rules_light.registry['your_model.your_app.create'] = rules_light.is_staff
+
+Example ``your_app/views.py``::
+
+    @rules_light.class_decorator
+    class YourModelCreateView(generic.CreateView):
+        model = YourModel
+
+You might want to read the `tutorial
+<https://django-rules-light.readthedocs.org/en/latest/tutorial.html>`_ for
 
 What's the catch ?
 ------------------
