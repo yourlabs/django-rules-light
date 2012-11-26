@@ -16,10 +16,7 @@ Example ``your_app/rules_light_registry.py``::
     rules_light.registry['blog.post.create'] = rules_light.is_authenticated
 
     def is_staff_or_mine(user, rule, obj):
-        if user.is_staff:
-            return True
-
-        return obj.author == user
+        return user.is_staff or obj.author == user
     
     # But others shouldn't mess with my posts !
     rules_light.registry['blog.post.update'] = is_staff_or_mine
