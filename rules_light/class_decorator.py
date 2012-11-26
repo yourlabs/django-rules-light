@@ -14,8 +14,8 @@ __all__ = ('class_decorator',)
 def patch_get_object(cls, suffix, override):
     old_get_object = cls.get_object
 
-    def new_get_object(self):
-        obj = old_get_object(self)
+    def new_get_object(self, *args, **kwargs):
+        obj = old_get_object(self, *args, **kwargs)
 
         if self.get_object._rule_override:
             rule_name = self.get_object._rule_override
@@ -67,14 +67,14 @@ class class_decorator(object):
         if issubclass(cls, generic.CreateView):
             old_get_form = cls.get_form
 
-            def new_get_form(self, form_class):
+            def new_get_form(self, *args, **kwargs):
                 model = form_class.Meta.model
                 rule_name = '%s.%s.create' % (model._meta.app_label,
                     model._meta.module_name)
 
                 registry.require(self.request.user, rule_name)
 
-                return old_get_form(self, form_class)
+                return old_get_form(self, *args, **kwargs)
 
             cls.get_form = new_get_form
 
