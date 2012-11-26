@@ -9,4 +9,3 @@ class RegistryView(generic.TemplateView):
 
     def get_context_data(self):
         return {'registry': rules_light.registry}
-
