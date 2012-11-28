@@ -3,8 +3,9 @@ Debugging
 
 Two tools are provided to debug issues with your registry:
 
-- the logger logs everything,
-- the url provides a live rule registry browser.
+- the :doc:`logger logs</logging>` everything (and it likes to log malicious
+  users too),
+- the url provides a live rule registry browser (see below).
 
 As usual, resort to ``ipdb``, for example in
 ``rules_light.RuleRegistry.run()`` place::
