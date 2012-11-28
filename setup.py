@@ -32,7 +32,7 @@ class RunTests(Command):
 
 setup(
     name='django-rules-light',
-    version='0.0.0',
+    version='0.0.1',
     description='Rule registry for django',
     author='James Pic',
     author_email='jamespic@gmail.com',
