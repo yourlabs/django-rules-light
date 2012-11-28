@@ -61,3 +61,6 @@ class RegistryTestCase(unittest.TestCase):
     def test_raises_RuleDoesNotExist(self):
         with self.assertRaises(rules_light.DoesNotExist) as cm:
             self.registry.run(self.user, 'x')
+
+        self.registry.logger.error.assert_called_once_with(
+            u'[rules_light] Rule does not exist "x"')

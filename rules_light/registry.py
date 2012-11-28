@@ -40,6 +40,7 @@ class RuleRegistry(dict):
         Also logs calls with the info-level.
         """
         if name not in self:
+            self.logger.error(u'[rules_light] Rule does not exist "%s"' % name)
             raise DoesNotExist(name)
 
         rule = self[name]
