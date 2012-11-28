@@ -94,7 +94,7 @@ package updates.
   <http://rtfd.org>`_,
 - `Package graciously hosted
   <http://pypi.python.org/pypi/django-rules-light/>`_ by `PyPi
-  <http://pypi.python.org/pypi>`_ (not yet),
+  <http://pypi.python.org/pypi>`_,
 - `Continuous integration graciously hosted
   <http://travis-ci.org/yourlabs/django-rules-light>`_ by `Travis-ci
   <http://travis-ci.org>`_
