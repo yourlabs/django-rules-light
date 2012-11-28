@@ -10,7 +10,7 @@ Either install the last release::
 
 Either install a development version::
 
-    pip install -e git+https://github.com/jpic/django-rules-light.git#egg=django-rules-light
+    pip install -e git+https://github.com/yourlabs/django-rules-light.git#egg=django-rules-light
 
 That should be enough to work with the registry.
 
