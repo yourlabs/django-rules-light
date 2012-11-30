@@ -83,7 +83,8 @@ class RuleRegistry(dict):
             formated_args.append(u'"%s"' % smart_text(arg))
 
         for key, value in kwargs.items():
-            formated_args.append(u'%s="%s"' % (smart_text(key), smart_text(value)))
+            formated_args.append(u'%s="%s"' % (smart_text(key),
+                smart_text(value)))
         formated_args = u', '.join(formated_args)
 
         if hasattr(self[name], '__call__'):
