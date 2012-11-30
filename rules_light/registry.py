@@ -10,6 +10,8 @@ A rule can be a callback or a variable that will be evaluated as bool.
 """
 import logging
 
+from django.utils.encoding import smart_text
+
 from exceptions import Denied, DoesNotExist
 
 __all__ = ('RuleRegistry', 'registry', 'require', 'run', 'autodiscover')
@@ -31,7 +33,7 @@ class RuleRegistry(dict):
         """
         super(RuleRegistry, self).__setitem__(key, value)
         self.logger.debug(u'[rules_light] "%s" registered with: %s' % (
-            key, value))
+            key, self.rule_text_name(value)))
 
     def run(self, user, name, *args, **kwargs):
         """
@@ -76,21 +78,35 @@ class RuleRegistry(dict):
         if name not in self:
             raise DoesNotExist(name)
 
+        formated_args = []
+        for arg in args:
+            formated_args.append(u'"%s"' % smart_text(arg))
+
+        for key, value in kwargs.items():
+            formated_args.append(u'%s="%s"' % (smart_text(key), smart_text(value)))
+        formated_args = u', '.join(formated_args)
+
         if hasattr(self[name], '__call__'):
-            if not args and not kwargs:
-                return u'%s(%s, "%s")' % (
-                    self[name], user, name)
-            elif args and kwargs:
-                return u'%s(%s, "%s", *%s, **%s)' % (
-                    self[name], user, name, args, kwargs)
-            elif args:
-                return u'%s(%s, "%s", *%s)' % (
-                    self[name], user, name, args)
-            elif kwargs:
-                return u'%s(%s, "%s", **%s)' % (
-                    self[name], user, name, kwargs)
+            text_name = self.rule_text_name(self[name])
+            print text_name
+
+            if formated_args:
+                return u'%s(%s, "%s", %s)' % (text_name, user, name,
+                                              formated_args)
+            else:
+                return u'%s(%s, "%s")' % (text_name, user, name)
         else:
             return u'%s is %s' % (name, self[name])
+
+    def rule_text_name(self, rule):
+        if hasattr(rule, 'func_name'):
+            return rule.func_name
+        elif hasattr(rule, '__class__'):
+            return rule.__class__.__name__
+        elif hasattr(rule, '__name__'):
+            return rule.__name__
+        else:
+            return smart_text(rule)
 
 
 registry = RuleRegistry()
