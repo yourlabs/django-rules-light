@@ -10,7 +10,7 @@ A rule can be a callback or a variable that will be evaluated as bool.
 """
 import logging
 
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_unicode
 
 from exceptions import Denied, DoesNotExist
 
