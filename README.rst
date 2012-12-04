@@ -7,7 +7,9 @@ models.
 One of the goal is to enable developpers of external apps to make rules, depend
 on it, while allowing a project to override rules.
 
-Example ``your_app/rules_light_registry.py``::
+Example ``your_app/rules_light_registry.py``:
+
+.. code-block:: python
 
     # Everybody can create or read a blog post (for now!):
     rules_light.registry['blog.post.read'] = True
@@ -22,7 +24,9 @@ Example ``your_app/rules_light_registry.py``::
     rules_light.registry['blog.post.update'] = is_staff_or_mine
     rules_light.registry['blog.post.delete'] = is_staff_or_mine
 
-Example ``your_app/views.py``::
+Example ``your_app/views.py``:
+
+.. code-block:: python
 
     @rules_light.class_decorator
     class PostDetailView(generic.DetailView):
