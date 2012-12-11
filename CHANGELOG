@@ -2,6 +2,7 @@
 
 - Added is_authenticated and is_staff shortcuts,
 - Added make_decorator which enables decorating rules with other rules.
+- Improved registration debug log messages with bools.
 
 0.0.4 Django 1.4 compatibility
 

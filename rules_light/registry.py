@@ -102,6 +102,10 @@ class RuleRegistry(dict):
     def rule_text_name(self, rule):
         if hasattr(rule, 'func_name'):
             return rule.func_name
+        elif rule is True:
+            return u'True'
+        elif rule is False:
+            return u'False'
         elif hasattr(rule, '__class__'):
             return rule.__class__.__name__
         elif hasattr(rule, '__name__'):
