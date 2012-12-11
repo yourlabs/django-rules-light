@@ -15,7 +15,7 @@ Either install a development version::
 That should be enough to work with the registry.
 
 Middleware
-----------
+``````````
 
 To enable the middleware that processes ``rules_light.Denied``
 exception, add to ``setings.MIDDLEWARE_CLASSES``::
@@ -28,7 +28,7 @@ exception, add to ``setings.MIDDLEWARE_CLASSES``::
 See :doc:`docs on middleware</middleware>` for more details.
 
 Autodiscovery
--------------
+`````````````
 
 To enable autodiscovery of rules in the various apps installed
 in your project, add to ``urls.py`` (as early as possible)::
@@ -38,8 +38,8 @@ in your project, add to ``urls.py`` (as early as possible)::
 
 See :doc:`docs on registry</registry>` for more details.
 
-Loging
-------
+Logging
+```````
 
 To enable logging, add a ``rules_light`` logger for example::
 
@@ -63,11 +63,10 @@ To enable logging, add a ``rules_light`` logger for example::
 
 See :doc:`docs on logging</logging>` for more details on logging.
 
-View
-----
+Debug view
+``````````
 
-For templates and static files to be auto discovered by Django,
-add to ``settings.INSTALLED_APPS``::
+Add to ``settings.INSTALLED_APPS``::
 
     INSTALLED_APPS = (
         'rules_light',
@@ -76,37 +75,68 @@ add to ``settings.INSTALLED_APPS``::
 
 Then the view should be usable, install it as such::
 
-    url(r'^rules/$', RegistryView.as_view(), name='rules_light_registry'),
-
-Or just::
-
     url(r'^rules/', include('rules_light.urls')),
 
 See :doc:`docs on debugging</debug>` for more details on debugging rules.
 
-Create rules
-------------
+Creating Rules
+--------------
 
-Create a file that will be picked up by
-``rules_light.autodiscover()`` like
-``your_app/rules_light_registry.py``.
+Declare rules
+`````````````
 
-It can look like this::
+Declaring rules consist of filling up the ``rules_light.registry`` dict. This
+dict uses rule "names" as keys, ie. ``do_something``,
+``some_app.some_model.create``, etc, etc ... For values, it can use booleans::
 
-    import rules_light
+    # Enable read for everybody
+    rules_light.registry['your_app.your_model.read'] = True
+    
+    # Disable delete for everybody
+    rules_light.registry['your_app.your_model.delete'] = False
 
-    # Allow all users to see your_model
+Optionnaly, use the Python dict method ``setdefault()`` in default rules. For
+example::
+
+    # Only allow everybody if another (project-specific) callback was not set
     rules_light.registry.setdefault('your_app.your_model.read', True)
 
-    def is_admin(user, rulename, *args):
-        return user.is_staff
+It can also use callbacks::
 
-    # Allow admins to create and edit models
-    rules_light.registry.setdefault('your_app.your_model.create', is_admin)
-    rules_light.registry.setdefault('your_app.your_model.update', is_admin)
-    rules_light.registry.setdefault('your_app.your_model.delete', is_admin)
-    
+    def your_custom_rule(user, rule_name, model, *args, **kwargs):
+        if user in model.your_custom_stuff:
+            return True  # Allow user !
+
+    rules_light.registry['app.model.read'] = your_custom_rule
+   
 See :doc:`docs on registry</registry>` for more details.
+
+Mix rules, DRY security
+```````````````````````
+
+Callbacks may also be used to decorate each other, using
+``rules_light.make_decorator()`` will transform a simple rule callback, into a
+rule callback that can also be used as decorator for another callback.
+
+Just decorate a callback with ``make_decorator()`` to make it reusable as
+decorator::
+
+    @rules_light.make_decorator
+    def some_condition(user, rule, *args, **kwargs):
+        # do stuff
+
+    rules_light.registry.setdefault('your_app.your_model.create', some_condition)
+
+    @some_condition
+    def extra_condition(user, rule, *args, **kwargs):
+        # do extra stuff
+
+    rules_light.registry.setdefault('your_app.your_model.update', extra_condition)
+
+This will cause ``some_condition()`` to be evaluated first, and if it passes,
+``extra_condition()`` will be evaluated to, for the update rule.
+
+See :doc:`docs on decorator</decorator>` for more details.
 
 Using rules
 -----------
@@ -164,10 +194,13 @@ You can decorate a class based view as such::
 
 This will automatically require ``'some_app.some_model.create'``.
 
-See :doc:`docs on decorator</decorator>` for more usages of the decorator.
+See :doc:`docs on class decorator</class_decorator>` for more usages of the decorator.
+
+Tips and tricks
+---------------
 
 Override rules
---------------
+``````````````
 
 If your project wants to change the behaviour of ``your_app`` to allows users
 to create models and edit the models they have created, you could add after
@@ -186,7 +219,7 @@ app, which should enpower creative django developers hehe ...
 See :doc:`docs on registry</registry>` for more details.
 
 Take a shortcut
----------------
+```````````````
 
 django-rules-light comes with a predefined ``is_staff`` rule which you could
 use in ``your_app/rules_light_registry.py``::
@@ -204,6 +237,6 @@ use in ``your_app/rules_light_registry.py``::
 See :doc:`docs on shortcuts</shortcuts>`.
 
 Test security
--------------
+`````````````
 
 See :doc:`security testing docs</testing>`.

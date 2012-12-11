@@ -10,7 +10,7 @@ from ..views import RegistryView
 from class_decorator_classes import *
 
 
-class DecoratorTestCase(unittest.TestCase):
+class ClassDecoratorTestCase(unittest.TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
         self.request.user, c = User.objects.get_or_create(username='foo')

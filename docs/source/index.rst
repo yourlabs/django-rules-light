@@ -15,9 +15,10 @@ Contents:
 
    tutorial
    registry
-   decorator
+   class_decorator
    middleware
    shortcuts
+   decorators
    logging
    debug
    testing

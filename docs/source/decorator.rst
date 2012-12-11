@@ -1,14 +1,5 @@
-Class decorator
-===============
+Make your decorators
+====================
 
-API
----
-
-.. automodule:: rules_light.class_decorator
+.. automodule:: rules_light.decorators
    :members:
-
-Examples
---------
-
-.. literalinclude:: ../../rules_light/tests/class_decorator_classes.py
-   :language: python
