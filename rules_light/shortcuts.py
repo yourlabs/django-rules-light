@@ -25,6 +25,8 @@ too (see ``make_decorator``)::
 
 from decorators import make_decorator
 
+__all__ = ['is_staff', 'is_authenticated']
+
 
 @make_decorator
 def is_staff(user, rulename, *args, **kwargs):
