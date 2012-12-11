@@ -18,7 +18,9 @@ Middleware
 ``````````
 
 To enable the middleware that processes ``rules_light.Denied``
-exception, add to ``setings.MIDDLEWARE_CLASSES``::
+exception, add to ``setings.MIDDLEWARE_CLASSES``:
+
+.. code-block:: python
 
     MIDDLEWARE_CLASSES = (
         # ...
@@ -31,7 +33,9 @@ Autodiscovery
 `````````````
 
 To enable autodiscovery of rules in the various apps installed
-in your project, add to ``urls.py`` (as early as possible)::
+in your project, add to ``urls.py`` (as early as possible):
+
+.. code-block:: python
 
     import rules_light
     rules_light.autodiscover()
@@ -41,7 +45,9 @@ See :doc:`docs on registry</registry>` for more details.
 Logging
 ```````
 
-To enable logging, add a ``rules_light`` logger for example::
+To enable logging, add a ``rules_light`` logger for example:
+
+.. code-block:: python
 
     LOGGING = {
         # ...
@@ -66,14 +72,18 @@ See :doc:`docs on logging</logging>` for more details on logging.
 Debug view
 ``````````
 
-Add to ``settings.INSTALLED_APPS``::
+Add to ``settings.INSTALLED_APPS``:
+
+.. code-block:: python
 
     INSTALLED_APPS = (
         'rules_light',
         # ....
     )
 
-Then the view should be usable, install it as such::
+Then the view should be usable, install it as such:
+
+.. code-block:: python
 
     url(r'^rules/', include('rules_light.urls')),
 
@@ -87,7 +97,9 @@ Declare rules
 
 Declaring rules consist of filling up the ``rules_light.registry`` dict. This
 dict uses rule "names" as keys, ie. ``do_something``,
-``some_app.some_model.create``, etc, etc ... For values, it can use booleans::
+``some_app.some_model.create``, etc, etc ... For values, it can use booleans:
+
+.. code-block:: python
 
     # Enable read for everybody
     rules_light.registry['your_app.your_model.read'] = True
@@ -96,12 +108,16 @@ dict uses rule "names" as keys, ie. ``do_something``,
     rules_light.registry['your_app.your_model.delete'] = False
 
 Optionnaly, use the Python dict method ``setdefault()`` in default rules. For
-example::
+example:
+
+.. code-block:: python
 
     # Only allow everybody if another (project-specific) callback was not set
     rules_light.registry.setdefault('your_app.your_model.read', True)
 
-It can also use callbacks::
+It can also use callbacks:
+
+.. code-block:: python
 
     def your_custom_rule(user, rule_name, model, *args, **kwargs):
         if user in model.your_custom_stuff:
@@ -119,7 +135,9 @@ Callbacks may also be used to decorate each other, using
 rule callback that can also be used as decorator for another callback.
 
 Just decorate a callback with ``make_decorator()`` to make it reusable as
-decorator::
+decorator:
+
+.. code-block:: python
 
     @rules_light.make_decorator
     def some_condition(user, rule, *args, **kwargs):
@@ -147,27 +165,37 @@ should return True or False.
 Run
 ```
 
-For example with this::
+For example with this:
+
+.. code-block:: python
 
     def some_condition(user, rulename, *args, **kwargs):
         # ...
     
     rules_light.registry['your_app.your_model.create'] = some_condition
 
-Doing::
+Doing:
+
+.. code-block:: python
 
     rules_light.run(request.user, 'your_app.your_model.create')
 
-Will call::
+Will call:
+
+.. code-block:: python
 
     some_condition(request.user, 'your_app.your_model.create')
 
-Kwargs are forwarded, for example::
+Kwargs are forwarded, for example:
+
+.. code-block:: python
 
     rules_light.run(request.user, 'your_app.your_model.create',
         with_widget=request.GET['widget'])
 
-Will call::
+Will call:
+
+.. code-block:: python
 
     some_condition(request.user, 'your_app.your_model.create',
         with_widget=request.GET['widget'])
@@ -186,7 +214,9 @@ See :doc:`docs on registry</registry>` for more details.
 Decorator
 `````````
 
-You can decorate a class based view as such::
+You can decorate a class based view as such:
+
+.. code-block:: python
 
     @rules_light.class_decorator
     class SomeCreateView(views.CreateView):
@@ -204,7 +234,9 @@ Override rules
 
 If your project wants to change the behaviour of ``your_app`` to allows users
 to create models and edit the models they have created, you could add after
-``rules_light.autodiscover()``::
+``rules_light.autodiscover()``:
+
+.. code-block:: python
 
     def my_model_or_staff(user, rulename, obj):
         return user.is_staff or user == obj.author
@@ -222,7 +254,9 @@ Take a shortcut
 ```````````````
 
 django-rules-light comes with a predefined ``is_staff`` rule which you could
-use in ``your_app/rules_light_registry.py``::
+use in ``your_app/rules_light_registry.py``:
+
+.. code-block:: python
 
     import rules_light
 
