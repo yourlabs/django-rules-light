@@ -16,7 +16,7 @@ But if defined using ``make_decorator`` as such::
     def is_authenticated(user, *args, **kwargs):
         return user and user.is_authenticated()
 
-Then you can use it to decorate other rules too:
+Then you can use it to decorate other rules too::
 
     @is_authenticated
     def my_book(user, rule, book):
