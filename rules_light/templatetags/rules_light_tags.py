@@ -4,7 +4,8 @@ from django import template
 
 from classytags.core import Options
 from classytags.helpers import AsTag
-from classytags.arguments import Argument, MultiKeywordArgument, MultiValueArgument
+from classytags.arguments import (Argument, MultiKeywordArgument,
+                                  MultiValueArgument)
 
 import rules_light
 
