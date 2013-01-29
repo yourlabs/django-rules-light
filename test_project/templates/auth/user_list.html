@@ -1,6 +1,8 @@
 {% extends 'site_base.html' %}
 {% load url from future %}
 
+{% load rules_light_tags %}
+
 {% block body %}
 <h1>Welcome to django-rules-light test project</h1>
 
@@ -8,8 +10,8 @@ List of users:
 <ul>
 {% for user in object_list %}
     <li>
-        <a href="{% url 'auth_user_detail' user.username %}">{{ user }}</a>
-        <a href="{% url 'auth_user_update' user.username %}">update</a>
+    <a href="{% url 'auth_user_detail' user.username %}">{{ user }} (has perm: {% rule 'auth.user.read' user as can_read %}{{ can_read|yesno:'Yes,No' }})</a>
+    <a href="{% url 'auth_user_update' user.username %}">update (has perm: {% rule 'auth.user.update' user as can_update %}{{ can_update|yesno:'Yes,No'}})</a>
     </li>
 {% endfor %}
 </ul>

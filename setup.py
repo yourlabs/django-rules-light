@@ -46,6 +46,7 @@ setup(
     keywords='django security rules acl rbac',
     install_requires=[
         'django',
+        'django-classy-tags',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
