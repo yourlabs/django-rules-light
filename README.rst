@@ -11,7 +11,7 @@ Example ``your_app/rules_light_registry.py``:
 
 .. code-block:: python
 
-    # Everybody can create or read a blog post (for now!):
+    # Everybody can read a blog post (for now!):
     rules_light.registry['blog.post.read'] = True
 
     # Require authentication to create a blog post, using a shortcut:
