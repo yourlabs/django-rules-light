@@ -226,6 +226,36 @@ This will automatically require ``'some_app.some_model.create'``.
 
 See :doc:`docs on class decorator</class_decorator>` for more usages of the decorator.
 
+Template
+````````
+
+In templates, you can run rules using '{% rule %}' templatetag. 
+
+Usage:
+
+.. code-block:: django
+
+    {% rule rule_name [args] [kwargs] as var_name %}
+
+This is an example from the test project:
+
+.. code-block:: django
+
+    {% load rules_light_tags %}
+
+    <ul>
+    {% for user in object_list %}
+        {% rule 'auth.user.read' user as can_read %}
+        {% rule 'auth.user.update' user as can_update %}
+
+        <li>
+        <a href="{% url 'auth_user_detail' user.username %}">{{ user }} (has perm: {{ can_read|yesno:'Yes,No' }})</a>
+        <a href="{% url 'auth_user_update' user.username %}">update (has perm: {{ can_update|yesno:'Yes,No'}})</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+
 Tips and tricks
 ---------------
 
