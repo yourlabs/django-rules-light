@@ -1,3 +1,5 @@
+0.0.6 Added {% rule %} templatetag.
+
 0.0.5 
 
 - Added is_authenticated and is_staff shortcuts,
