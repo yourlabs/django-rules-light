@@ -1,34 +1,28 @@
 import unittest
 
-from django.contrib.auth.models import User
-
 import rules_light
+
+@rules_light.make_decorator
+def return_true(*args):
+    return True
+
+
+@rules_light.make_decorator
+def return_false(*args):
+    return False
 
 
 class DecoratorsTestCase(unittest.TestCase):
-    def setUp(self):
-        self.user, c = User.objects.get_or_create(username='foo')
-        self.admin, c = User.objects.get_or_create(username='bar',
-                is_staff=True)
+    def test_decorator_return_true(self):
+        rule = return_true(lambda x, y: True)
+        self.assertTrue(rule('x', 'y'))
 
-    def test_is_authenticated_decorator(self):
-        return_true = rules_light.is_authenticated(lambda u, r: True)
+        rule = return_true(lambda x, y: False)
+        self.assertFalse(rule('x', 'y'))
 
-        self.assertFalse(return_true(None, 'foo'))
-        self.assertTrue(return_true(self.user, 'foo'))
+    def test_decorator_return_false(self):
+        rule = return_false(lambda x, y: True)
+        self.assertFalse(rule('x', 'y'))
 
-    def test_is_authenticated_rule(self):
-        self.assertFalse(rules_light.is_authenticated(None, 'foo'))
-        self.assertTrue(rules_light.is_authenticated(self.user, 'foo'))
-
-    def test_is_staff_decorator(self):
-        return_true = rules_light.is_staff(lambda u, r: True)
-
-        self.assertFalse(return_true(None, 'foo'))
-        self.assertFalse(return_true(self.user, 'foo'))
-        self.assertTrue(return_true(self.admin, 'foo'))
-
-    def test_is_staff_rule(self):
-        self.assertFalse(rules_light.is_staff(None, 'foo'))
-        self.assertFalse(rules_light.is_staff(self.user, 'foo'))
-        self.assertTrue(rules_light.is_staff(self.admin, 'foo'))
+        rule = return_false(lambda x, y: False)
+        self.assertFalse(rule('x', 'y'))
