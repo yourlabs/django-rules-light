@@ -26,3 +26,10 @@ class DecoratorsTestCase(unittest.TestCase):
 
         rule = return_false(lambda x, y: False)
         self.assertFalse(rule('x', 'y'))
+
+    def test_decorator_name(self):
+        @return_true
+        def foo(*args):
+            pass
+
+        self.assertEqual(foo.__name__, 'foo')

@@ -36,6 +36,7 @@ def make_decorator(_rule):
                 if not _rule(user, rule, *args, **kwargs):
                     return False
                 return func(user, rule, *args, **kwargs)
+            _decorated.__name__ = func.__name__
             return _decorated
         else:  # rule
             return _rule(*args, **kwargs)
