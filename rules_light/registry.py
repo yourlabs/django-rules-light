@@ -89,7 +89,7 @@ class RuleRegistry(dict):
 
         if hasattr(self[name], '__call__'):
             text_name = self.rule_text_name(self[name])
-            print text_name
+            #print text_name
 
             if formated_args:
                 return u'%s(%s, "%s", %s)' % (text_name, user, name,
