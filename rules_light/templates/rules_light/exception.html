@@ -3,9 +3,11 @@
 {% load i18n %}
 
 {% block body %}
-    {% trans 'You do not have permission to do that.' %}
+	<div class='rules_light' >
+		{% trans 'You do not have permission to do that.' %}
 
-    {% if settings.LOGIN_URL %}
-    <a href="{{ settings.LOGIN_URL }}?next={{ request.path_info|urlencode }}">{% trans 'Try logging in' %} {% if request.user.is_authenticated %}{% trans 'with other credentials' %}{% endif %}</a>
-    {% endif %}
+		{% if settings.LOGIN_URL %}
+		<a href="{{ settings.LOGIN_URL }}?next={{ request.path_info|urlencode }}">{% trans 'Try logging in' %} {% if request.user.is_authenticated %}{% trans 'with other credentials' %}{% endif %}</a>
+		{% endif %}
+	</div>
 {% endblock %}
