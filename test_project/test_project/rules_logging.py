@@ -12,11 +12,11 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
         },
-        'malicious':{
+        'malicious': {
             'level': 'WARN',
             'class': 'logging.FileHandler',
             'filename': 'malicious.log',
@@ -29,9 +29,10 @@ LOGGING = {
             'propagate': True,
         },
         'rules_light': {
-            'handlers':['console', 'malicious'],
+            'handlers': ['console', 'malicious'],
             'propagate': True,
-            'level':'DEBUG',
+            'level': 'DEBUG',
         },
     }
 }
+
