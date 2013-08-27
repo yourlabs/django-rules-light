@@ -1,4 +1,9 @@
 .. image:: https://secure.travis-ci.org/yourlabs/django-rules-light.png?branch=master
+    :target: http://travis-ci.org/yourlabs/django-rules-light
+.. image:: https://pypip.in/d/django-rules-light/badge.png
+    :target: https://crate.io/packages/django-rules-light
+.. image:: https://pypip.in/v/django-rules-light/badge.png   
+    :target: https://crate.io/packages/django-rules-light
 
 This is a simple alternative to django-rules. The core difference is that
 it uses as registry that can be modified on runtime, instead of database
