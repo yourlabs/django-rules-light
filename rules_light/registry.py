@@ -14,7 +14,7 @@ import logging
 
 from django.utils.encoding import smart_text
 
-from exceptions import Denied, DoesNotExist
+from .exceptions import Denied, DoesNotExist
 
 __all__ = ('RuleRegistry', 'registry', 'require', 'run', 'autodiscover')
 

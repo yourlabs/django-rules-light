@@ -24,7 +24,7 @@ too (see ``make_decorator``)::
 """
 from __future__ import unicode_literals
 
-from decorators import make_decorator
+from .decorators import make_decorator
 
 __all__ = ['is_staff', 'is_authenticated']
 

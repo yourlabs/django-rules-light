@@ -67,7 +67,7 @@ setup(
     license='MIT',
     keywords='django security rules acl rbac',
     install_requires=[
-        'django',
+        'six',
         'django-classy-tags',
     ],
     classifiers=[
@@ -77,6 +77,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ]
 )

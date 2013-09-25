@@ -2,11 +2,12 @@
 
 """
 from __future__ import unicode_literals
+import six
 
 from django.views import generic
 
-from exceptions import RulesLightException
-from registry import registry
+from .exceptions import RulesLightException
+from .registry import registry
 
 
 __all__ = ('class_decorator',)
@@ -56,7 +57,7 @@ class class_decorator(object):
     def __new__(self, *args):
         if hasattr(args[0], 'as_view'):
             cls = args[0]
-        elif isinstance(args[0], basestring):
+        elif isinstance(args[0], six.string_types):
             new_class_decorator = type('new_class_decorator',
                 (class_decorator,), {'rule': args[0]})
             return new_class_decorator

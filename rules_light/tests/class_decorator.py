@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 import rules_light
 from ..views import RegistryView
 
-from class_decorator_classes import *
+from .class_decorator_classes import *
 
 
 class ClassDecoratorTestCase(unittest.TestCase):

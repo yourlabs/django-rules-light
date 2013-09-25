@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 
 import rules_light
 
-from views import RegistryView
+from .views import RegistryView
 
 
 urlpatterns = patterns('',
