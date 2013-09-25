@@ -54,7 +54,7 @@ else:
 
 setup(
     name='django-rules-light',
-    version='0.0.9',
+    version='0.1.0',
     description='Rule registry for django',
     author='James Pic',
     author_email='jamespic@gmail.com',
