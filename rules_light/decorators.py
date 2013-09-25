@@ -25,6 +25,7 @@ Then you can use it to decorate other rules too::
     rules_light.registry['do_something'] = my_book
 
 """
+from __future__ import unicode_literals
 
 
 def make_decorator(_rule):

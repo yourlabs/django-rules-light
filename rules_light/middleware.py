@@ -2,6 +2,7 @@
 The role of the middleware is to present a user friendly error page when a rule
 denied process of the request by raising ``Denied``.
 """
+from __future__ import unicode_literals
 
 from django import template
 from django import http

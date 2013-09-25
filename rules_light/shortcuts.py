@@ -22,6 +22,7 @@ too (see ``make_decorator``)::
 
     rules_light.registry.setdefault('your_app.your_model.update', my_book)
 """
+from __future__ import unicode_literals
 
 from decorators import make_decorator
 

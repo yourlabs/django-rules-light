@@ -8,9 +8,11 @@ default RuleRegistry instance.
 
 A rule can be a callback or a variable that will be evaluated as bool.
 """
+from __future__ import unicode_literals
+
 import logging
 
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 
 from exceptions import Denied, DoesNotExist
 
@@ -80,11 +82,11 @@ class RuleRegistry(dict):
 
         formated_args = []
         for arg in args:
-            formated_args.append(u'"%s"' % smart_unicode(arg))
+            formated_args.append(u'"%s"' % smart_text(arg))
 
         for key, value in kwargs.items():
-            formated_args.append(u'%s="%s"' % (smart_unicode(key),
-                smart_unicode(value)))
+            formated_args.append(u'%s="%s"' % (smart_text(key),
+                smart_text(value)))
         formated_args = u', '.join(formated_args)
 
         if hasattr(self[name], '__call__'):
@@ -110,7 +112,7 @@ class RuleRegistry(dict):
         elif hasattr(rule, '__name__'):
             return rule.__name__
         else:
-            return smart_unicode(rule)
+            return smart_text(rule)
 
 
 registry = RuleRegistry()
