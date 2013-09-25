@@ -58,7 +58,7 @@ class class_decorator(object):
         if hasattr(args[0], 'as_view'):
             cls = args[0]
         elif isinstance(args[0], six.string_types):
-            new_class_decorator = type('new_class_decorator',
+            new_class_decorator = type(b'new_class_decorator',
                 (class_decorator,), {'rule': args[0]})
             return new_class_decorator
         elif hasattr(args[0], '__call__'):
