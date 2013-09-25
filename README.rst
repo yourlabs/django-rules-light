@@ -69,8 +69,8 @@ This means that the developper has to:
 Requirements
 ------------
 
-- Maintained against Python 2.7
-- and Django 1.4+
+- Python 2.7+ (Python 3 supported)
+- Django 1.4+
 
 Quick Install
 -------------
