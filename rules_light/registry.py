@@ -107,10 +107,10 @@ class RuleRegistry(dict):
             return u'True'
         elif rule is False:
             return u'False'
-        elif hasattr(rule, '__class__'):
-            return rule.__class__.__name__
         elif hasattr(rule, '__name__'):
             return rule.__name__
+        elif hasattr(rule, '__class__'):
+            return rule.__class__.__name__
         else:
             return smart_text(rule)
 
