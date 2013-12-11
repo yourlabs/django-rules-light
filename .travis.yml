@@ -17,5 +17,11 @@ before_script:
   - "pep8 --exclude=tests,migrations --ignore=E124,E128 rules_light"
 script:
   - python setup.py test
+
 notifications:
-  irc: "irc.freenode.org#neoskills"
+  irc: 
+    channels: 
+      - "irc.freenode.org#yourlabs"
+    template:
+      - "%{repository} (%{commit} %{author}) : %{message} %{build_url} %{compare_url}"
+
