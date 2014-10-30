@@ -5,6 +5,8 @@ import posixpath
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
+TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 

@@ -21,35 +21,19 @@ class RunTests(Command):
         testproj_dir = os.path.join(this_dir, "test_project")
         os.chdir(testproj_dir)
         sys.path.append(testproj_dir)
-        from django.core.management import execute_manager
+        from django.core.management import execute_from_command_line
         os.environ["DJANGO_SETTINGS_MODULE"] = 'test_project.settings'
         settings_file = os.environ["DJANGO_SETTINGS_MODULE"]
         settings_mod = __import__(settings_file, {}, {}, [''])
-        execute_manager(settings_mod, argv=[
-            __file__, "test", "rules_light"])
+        execute_from_command_line(
+            argv=[__file__, "test", "session_security"])
         os.chdir(this_dir)
 
 if 'sdist' in sys.argv:
-    # clear compiled mo files before building the distribution
-    walk = os.walk(os.path.join(os.getcwd(), 'rules_light/locale'))
-    for dirpath, dirnames, filenames in walk:
-        if not filenames:
-            continue
-
-        if 'django.mo' in filenames:
-            os.unlink(os.path.join(dirpath, 'django.mo'))
-else:
-    # if django is there, compile the po files to mo,
-    try:
-        import django
-    except ImportError:
-        pass
-    else:
-        dir = os.getcwd()
-        os.chdir(os.path.join(dir, 'rules_light'))
-        os.system('django-admin.py compilemessages')
-        os.chdir(dir)
-
+    dir = os.getcwd()
+    os.chdir(os.path.join(dir, 'rules_light'))
+    os.system('django-admin.py compilemessages')
+    os.chdir(dir)
 
 
 setup(
