@@ -26,7 +26,7 @@ class RunTests(Command):
         settings_file = os.environ["DJANGO_SETTINGS_MODULE"]
         settings_mod = __import__(settings_file, {}, {}, [''])
         execute_from_command_line(
-            argv=[__file__, "test", "session_security"])
+            argv=[__file__, "test", "rules_light"])
         os.chdir(this_dir)
 
 if 'sdist' in sys.argv:
