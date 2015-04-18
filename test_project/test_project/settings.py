@@ -2,10 +2,13 @@
 
 import os.path
 import posixpath
+import django
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+if django.VERSION >=(1,6):
+    TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
