@@ -1,3 +1,5 @@
+0.1.3 Django 1.8 support by Serafeim Papastefanos @spapas.
+
 0.1.2 Added Brazilian Portuguese Translation.
 
 0.1.1 Decorated rule name was just 'function' in Python 3.
