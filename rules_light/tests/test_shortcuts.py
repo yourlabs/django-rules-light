@@ -1,11 +1,13 @@
 from __future__ import unicode_literals
 import unittest
+import pytest
 
 from django.contrib.auth.models import User
 
 import rules_light
 
 
+@pytest.mark.django_db
 class ShortcutsTestCase(unittest.TestCase):
     def setUp(self):
         self.user, c = User.objects.get_or_create(username='foo')

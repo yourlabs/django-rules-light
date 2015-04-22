@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+import pytest
 import unittest
 
 from django.test.client import RequestFactory
@@ -8,6 +9,7 @@ import rules_light
 from ..views import RegistryView
 
 
+@pytest.mark.django_db
 class ViewsTestCase(unittest.TestCase):
     def setUp(self):
         """

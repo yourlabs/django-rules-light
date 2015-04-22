@@ -86,6 +86,14 @@ You might want to read the `tutorial
 There is also a lot of documentation, from the core to the tools, including
 pointers to debug, log and test your security.
 
+Contributing
+------------
+
+Run tests with the `tox
+<https://pypi.python.org/pypi/tox>`_ command. Documented patches passing all
+tests have more chances getting merged in, see `community guidelines
+<http://docs.yourlabs.org>`_ for details.
+
 Resources
 ---------
 

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import unicode_literals
 import logging
+import pytest
 import unittest
 from mock import Mock
 
@@ -9,6 +10,7 @@ from django.contrib.auth.models import User
 import rules_light
 
 
+@pytest.mark.django_db
 class RegistryTestCase(unittest.TestCase):
     def setUp(self):
         self.registry = rules_light.RuleRegistry()

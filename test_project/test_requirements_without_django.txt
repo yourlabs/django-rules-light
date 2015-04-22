@@ -1,0 +1,5 @@
+# Test requirements without Django, to work around https://github.com/pypa/pip/issues/2367.
+mock
+cssselect
+pytest
+pytest-django

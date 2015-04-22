@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import unittest
+import pytest
 
 from django.views import generic
 from django.test.client import RequestFactory
@@ -11,6 +12,7 @@ from ..views import RegistryView
 from .class_decorator_classes import *
 
 
+@pytest.mark.django_db
 class ClassDecoratorTestCase(unittest.TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/')
