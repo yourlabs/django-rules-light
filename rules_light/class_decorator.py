@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 import six
 
+import django
 from django.views import generic
 
 from .exceptions import RulesLightException
@@ -78,18 +79,33 @@ class class_decorator(object):
         if issubclass(cls, generic.CreateView):
             old_get_form = cls.get_form
 
-            def new_get_form(self, form_class, *args, **kwargs):
-                model = form_class.Meta.model
-                try:
-                    model_name = model._meta.model_name
-                except AttributeError:
-                    model_name = model._meta.module_name
-                rule_name = '%s.%s.create' % (model._meta.app_label,
-                    model_name)
+            if django.VERSION >= (1,8):
+                def new_get_form(self, *args, **kwargs):
+                    model = self.get_form_class().Meta.model
+                    try:
+                        model_name = model._meta.model_name
+                    except AttributeError:
+                        model_name = model._meta.module_name
+                    rule_name = '%s.%s.create' % (model._meta.app_label,
+                        model_name)
 
-                registry.require(self.request.user, rule_name)
+                    registry.require(self.request.user, rule_name)
 
-                return old_get_form(self, form_class, *args, **kwargs)
+                    return old_get_form(self, *args, **kwargs)
+            
+            else:
+                def new_get_form(self, form_class, *args, **kwargs):
+                    model = form_class.Meta.model
+                    try:
+                        model_name = model._meta.model_name
+                    except AttributeError:
+                        model_name = model._meta.module_name
+                    rule_name = '%s.%s.create' % (model._meta.app_label,
+                        model_name)
+
+                    registry.require(self.request.user, rule_name)
+
+                    return old_get_form(self, form_class, *args, **kwargs)
 
             cls.get_form = new_get_form
 

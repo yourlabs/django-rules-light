@@ -11,4 +11,4 @@ class MiddlewareTestCase(unittest.TestCase):
         self.client = Client()
 
     def test_redirect(self):
-        self.client.go('/')
+        self.client.get('/')
