@@ -8,7 +8,7 @@ from django import template
 from django import http
 from django.conf import settings
 
-from .exceptions import RulesLightException, Denied, DoesNotExist
+from .exceptions import RulesLightException
 
 
 class Middleware(object):

@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, include, url
-
-import rules_light
+from django.conf.urls import patterns, url
 
 from .views import RegistryView
 
