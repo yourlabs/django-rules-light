@@ -1,11 +1,10 @@
 from __future__ import unicode_literals
-
-import unittest
+from django.test import TestCase
 
 import rules_light
 
 
-class AutodiscoverTestCase(unittest.TestCase):
+class AutodiscoverTestCase(TestCase):
     def test_autodiscover(self):
         self.assertEqual(list(rules_light.registry.keys()), [])
         rules_light.autodiscover()
