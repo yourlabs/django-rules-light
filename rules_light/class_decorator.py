@@ -79,7 +79,7 @@ class class_decorator(object):
         if issubclass(cls, generic.CreateView):
             old_get_form = cls.get_form
 
-            if django.VERSION >= (1,8):
+            if django.VERSION >= (1, 8):
                 def new_get_form(self, *args, **kwargs):
                     model = self.get_form_class().Meta.model
                     try:
@@ -92,7 +92,7 @@ class class_decorator(object):
                     registry.require(self.request.user, rule_name)
 
                     return old_get_form(self, *args, **kwargs)
-            
+
             else:
                 def new_get_form(self, form_class, *args, **kwargs):
                     model = form_class.Meta.model
