@@ -7,9 +7,9 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import User
 
 import rules_light
-from ..views import RegistryView
+from rules_light.views import RegistryView
 
-from .class_decorator_classes import *
+from .fixtures.class_decorator_classes import *
 
 
 @pytest.mark.django_db

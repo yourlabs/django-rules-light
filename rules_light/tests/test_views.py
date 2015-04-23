@@ -6,7 +6,7 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import User, AnonymousUser
 
 import rules_light
-from ..views import RegistryView
+from rules_light.views import RegistryView
 
 
 @pytest.mark.django_db
