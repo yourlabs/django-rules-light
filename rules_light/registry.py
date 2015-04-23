@@ -14,6 +14,11 @@ import logging
 
 from django.utils.encoding import smart_text
 
+try:
+    from django.utils.module_loading import autodiscover_modules
+except ImportError:
+    autodiscover_modules = None
+
 from .exceptions import Denied, DoesNotExist
 
 __all__ = ('RuleRegistry', 'registry', 'require', 'run', 'autodiscover')
@@ -184,4 +189,7 @@ def autodiscover():
     `'cities_light.city.read'` and `'cities_light.city.update'` will be
     registered.
     """
-    _autodiscover(registry)
+    if autodiscover_modules:
+        autodiscover_modules('rules_light_registry')
+    else:
+        _autodiscover(registry)
