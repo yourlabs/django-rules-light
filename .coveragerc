@@ -1,0 +1,5 @@
+[report]
+omit = 
+    */rules_light/example_apps/*
+    */rules_light/tests/*
+    */test_project/*
