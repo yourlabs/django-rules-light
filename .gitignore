@@ -3,3 +3,5 @@
 docs/build
 # Pycharm
 .idea
+.tox
+env
