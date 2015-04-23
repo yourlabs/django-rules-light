@@ -78,7 +78,8 @@ Quick Install
 - Install module: ``pip install django-rules-light``,
 - Add to ``settings.INSTALLED_APPS``: ``rules_light``,
 - Add in ``settings.MIDDLEWARE_CLASSES``: ``rules_light.middleware.Middleware``,
-- Add in ``urls.py``: ``rules_light.autodiscover()``,
+- Add in ``urls.py``: ``rules_light.autodiscover()`` if you have
+  ``admin.autodiscover()`` in there too (Django < 1.7),
 
 You might want to read the `tutorial
 <https://django-rules-light.readthedocs.org/en/latest/tutorial.html>`_.
