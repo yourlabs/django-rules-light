@@ -1,8 +1,8 @@
 .. image:: https://secure.travis-ci.org/yourlabs/django-rules-light.png?branch=master
     :target: http://travis-ci.org/yourlabs/django-rules-light
-.. image:: https://pypip.in/d/django-rules-light/badge.png
+.. image:: https://img.shields.io/pypi/dm/django-rules-light.svg
     :target: https://crate.io/packages/django-rules-light
-.. image:: https://pypip.in/v/django-rules-light/badge.png   
+.. image:: https://img.shields.io/pypi/v/django-rules-light.svg   
     :target: https://crate.io/packages/django-rules-light
 
 This is a simple alternative to django-rules. The core difference is that
