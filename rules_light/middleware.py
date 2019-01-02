@@ -4,8 +4,8 @@ denied process of the request by raising ``Denied``.
 """
 from __future__ import unicode_literals
 
-from django import template
-from django import http
+from django import template, http, VERSION
+
 from django.conf import settings
 
 from .exceptions import RulesLightException
@@ -24,7 +24,19 @@ class Middleware(object):
         if not isinstance(exception, RulesLightException):
             return
 
-        ctx = template.RequestContext(request, dict(exception=exception,
-            settings=settings))
+        if VERSION > (1, 8):
+            ctx = dict(exception=exception, settings=settings)
+        else:
+            ctx = template.RequestContext(request, dict(exception=exception,
+                settings=settings))
         return http.HttpResponseForbidden(template.loader.render_to_string(
             'rules_light/exception.html', ctx))
+
+    def __init__(self, get_response):
+        super(Middleware, self).__init__()
+        # Support Django 1.10 middleware.
+        if get_response is not None:
+            self.get_response = get_response
+
+    def __call__(self, request):
+        return self.get_response(request)
