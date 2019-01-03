@@ -3,7 +3,7 @@ language: python
 matrix:
   allow_failures:
 python:
-  - "3.7"
+  - "3.5"
 env:
   global:
     - PIP_DISABLE_PIP_VERSION_CHECK=true
