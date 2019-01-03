@@ -35,4 +35,5 @@ class Rule(AsTag):
         return rules_light.run(context.request.user, rule_name, *args,
                                **kwargs)
 
+
 register.tag(Rule)
