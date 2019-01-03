@@ -32,7 +32,7 @@ class Middleware(object):
         return http.HttpResponseForbidden(template.loader.render_to_string(
             'rules_light/exception.html', ctx))
 
-    def __init__(self, get_response):
+    def __init__(self, get_response=None):
         super(Middleware, self).__init__()
         # Support Django 1.10 middleware.
         if get_response is not None:

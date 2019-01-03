@@ -119,13 +119,16 @@ class class_decorator(object):
             patch_get_object(cls, 'delete', self.rule)
 
         elif self.rule:
-            old_dispatch = cls.dispatch
+            if issubclass(cls, generic.detail.SingleObjectMixin):
+                patch_get_object(cls, 'generic', self.rule)
+            else:
+                old_dispatch = cls.dispatch
 
-            def new_dispatch(self, request, *args, **kwargs):
-                registry.require(request.user, self.dispatch._rule)
-                return old_dispatch(self, request, *args, **kwargs)
-            new_dispatch._rule = self.rule
-            cls.dispatch = new_dispatch
+                def new_dispatch(self, request, *args, **kwargs):
+                    registry.require(request.user, self.dispatch._rule)
+                    return old_dispatch(self, request, *args, **kwargs)
+                new_dispatch._rule = self.rule
+                cls.dispatch = new_dispatch
 
         else:
             raise RulesLightException('Dont understand what to do')

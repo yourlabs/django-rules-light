@@ -69,4 +69,7 @@ def is_authenticated(user, rulename, *args, **kwargs):
     """
     Return user.is_authenticated().
     """
-    return user and user.is_authenticated()
+    try:
+        return user and user.is_authenticated()
+    except:
+        return user and user.is_authenticated
