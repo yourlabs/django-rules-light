@@ -14,7 +14,7 @@ from .exceptions import RulesLightException
 class Middleware(object):
     """
     Install this middleware by adding `rules_light.middleware.Middleware`` to
-    ``settings.MIDDLEWARE_CLASSES``.
+    ``settings.MIDDLEWARE_CLASSES`` or ``settings.MIDDLEWARE`` for Django1.10+
     """
     def process_exception(self, request, exception):
         """
@@ -32,7 +32,7 @@ class Middleware(object):
         return http.HttpResponseForbidden(template.loader.render_to_string(
             'rules_light/exception.html', ctx))
 
-    def __init__(self, get_response):
+    def __init__(self, get_response=None):
         super(Middleware, self).__init__()
         # Support Django 1.10 middleware.
         if get_response is not None:

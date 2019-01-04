@@ -18,7 +18,7 @@ Middleware
 ``````````
 
 To enable the middleware that processes ``rules_light.Denied``
-exception, add to ``setings.MIDDLEWARE_CLASSES``:
+exception, add to ``setings.MIDDLEWARE_CLASSES`` or ``settings.MIDDLEWARE`` for Django >= 1.10:
 
 .. code-block:: python
 
@@ -28,19 +28,6 @@ exception, add to ``setings.MIDDLEWARE_CLASSES``:
     )
 
 See :doc:`docs on middleware</middleware>` for more details.
-
-Autodiscovery
-`````````````
-
-To enable autodiscovery of rules in the various apps installed
-in your project, add to ``urls.py`` (as early as possible):
-
-.. code-block:: python
-
-    import rules_light
-    rules_light.autodiscover()
-
-See :doc:`docs on registry</registry>` for more details.
 
 Logging
 ```````
