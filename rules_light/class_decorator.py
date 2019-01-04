@@ -54,7 +54,8 @@ class class_decorator(object):
     - ``DetailView``, it will decorate ``get_object()``, to run
       ``rules_light.require('yourapp.yourmodel.read', obj)``,
     - others views, if the rule name is specified in the decorator for example
-      ``@class_decorator('some_rule')``, then it will decorate ``dispatch()``,
+      ``@class_decorator('some_rule')``, then it will decorate either ``get_object()`` 
+      if the CBV is subclassed from ``SingleObjectMixin`` else it will decorate ``dispatch()``,
     - Else it raises an exception.
     """
     rule = None

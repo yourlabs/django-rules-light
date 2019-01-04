@@ -70,16 +70,15 @@ Requirements
 ------------
 
 - Python 2.7+ (Python 3 supported)
-- Django 1.4+
+- Django 1.8+
 
 Quick Install
 -------------
 
 - Install module: ``pip install django-rules-light``,
 - Add to ``settings.INSTALLED_APPS``: ``rules_light``,
-- Add in ``settings.MIDDLEWARE_CLASSES``: ``rules_light.middleware.Middleware``,
-- Add in ``urls.py``: ``rules_light.autodiscover()`` if you have
-  ``admin.autodiscover()`` in there too (Django < 1.7),
+- Add in ``settings.MIDDLEWARE_CLASSES`` (or ``settings.MIDDLEWARE`` for Django 1.10+): ``rules_light.middleware.Middleware``,
+
 
 You might want to read the `tutorial
 <https://django-rules-light.readthedocs.org/en/latest/tutorial.html>`_.
