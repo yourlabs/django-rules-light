@@ -14,7 +14,7 @@ from .exceptions import RulesLightException
 class Middleware(object):
     """
     Install this middleware by adding `rules_light.middleware.Middleware`` to
-    ``settings.MIDDLEWARE_CLASSES`` or ``settings.MIDDLEWARE`` for Django >= 1.10.
+    ``settings.MIDDLEWARE_CLASSES`` or ``settings.MIDDLEWARE`` for Django1.10+
     """
     def process_exception(self, request, exception):
         """
