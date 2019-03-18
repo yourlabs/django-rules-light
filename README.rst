@@ -5,12 +5,12 @@
 .. image:: https://img.shields.io/pypi/v/django-rules-light.svg   
     :target: https://crate.io/packages/django-rules-light
 
-This is a simple alternative to django-rules. The core difference is that
-it uses as registry that can be modified on runtime, instead of database
-models.
+This is a simple alternative to django-rules. Its core difference is that
+it does not rely on models. Instead, it uses a registry which can be
+modified at runtime.
 
-One of the goal is to enable developpers of external apps to make rules, depend
-on it, while allowing a project to override rules.
+One of its goals is to enable developers of external apps to make rules,
+depend on it, while allowing a project to override rules.
 
 Example ``your_app/rules_light_registry.py``:
 
@@ -22,10 +22,10 @@ Example ``your_app/rules_light_registry.py``:
     # Require authentication to create a blog post, using a shortcut:
     rules_light.registry['blog.post.create'] = rules_light.is_authenticated
 
+    # But others shouldn't mess with my posts !
     def is_staff_or_mine(user, rule, obj):
         return user.is_staff or obj.author == user
-    
-    # But others shouldn't mess with my posts !
+
     rules_light.registry['blog.post.update'] = is_staff_or_mine
     rules_light.registry['blog.post.delete'] = is_staff_or_mine
 
@@ -36,15 +36,15 @@ Example ``your_app/views.py``:
     @rules_light.class_decorator
     class PostDetailView(generic.DetailView):
         model = Post
-     
+
     @rules_light.class_decorator
     class PostCreateView(generic.CreateView):
         model = Post
-     
+
     @rules_light.class_decorator
     class PostUpdateView(generic.UpdateView):
         model = Post
-   
+
     @rules_light.class_decorator
     class PostDeleteView(generic.DeleteView):
         model = Post
@@ -59,7 +59,7 @@ What's the catch ?
 The catch is that this approach does not offer any feature to get secure
 querysets.
 
-This means that the developper has to:
+This means you have to:
 
 - think about security when making querysets,
 - `override
@@ -91,14 +91,14 @@ Contributing
 
 Run tests with the `tox
 <https://pypi.python.org/pypi/tox>`_ command. Documented patches passing all
-tests have more chances getting merged in, see `community guidelines
+tests have a better chance to get merged in. See `community guidelines
 <http://docs.yourlabs.org>`_ for details.
 
 Resources
 ---------
 
-You could subscribe to the mailing list ask questions or just be informed of
-package updates.
+To ask questions or just get informed about package updates, you could
+subscribe to the mailing list.
 
 - `Mailing list graciously hosted
   <http://groups.google.com/group/yourlabs>`_ by `Google
