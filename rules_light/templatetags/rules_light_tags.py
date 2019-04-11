@@ -33,7 +33,7 @@ class Rule(AsTag):
 
     def get_value(self, context, rule_name, args, kwargs):
         try:
-            return rules_light.run(context.request.user, rule_name, *args,  **kwargs)
+            return rules_light.run(context.request.user, rule_name, *args, **kwargs)
         except AttributeError:
             rules_light.run(context['request'].user, rule_name, *args,  **kwargs)
         
