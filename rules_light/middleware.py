@@ -25,7 +25,7 @@ class Middleware(object):
             return
 
         if VERSION > (1, 8):
-            ctx = dict(exception=exception, settings=settings)
+            ctx = dict(request=request, exception=exception, settings=settings)
         else:
             ctx = template.RequestContext(request, dict(exception=exception,
                 settings=settings))
