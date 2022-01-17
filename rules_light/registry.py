@@ -12,7 +12,7 @@ from __future__ import unicode_literals
 
 import logging
 
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str as smart_text
 
 try:
     from django.utils.module_loading import autodiscover_modules

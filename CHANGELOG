@@ -1,6 +1,5 @@
-Unreleased
-
-- Provide context for error page by @martinmaillard
+0.3.1 Django 4.x support
+Provide context for error page by @martinmaillard
 
 0.3.0 Django 2.x support 
 

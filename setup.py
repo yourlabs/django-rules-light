@@ -38,7 +38,7 @@ if 'sdist' in sys.argv:
 
 setup(
     name='django-rules-light',
-    version='0.3.0',
+    version='0.3.1',
     description='Rule registry for django',
     author='James Pic',
     author_email='jamespic@gmail.com',
