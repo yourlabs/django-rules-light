@@ -40,4 +40,4 @@ class Rule(AsTag):
                     *args, **kwargs)
 
 
-register.tag(Rule)
+register.tag('rule', Rule)
