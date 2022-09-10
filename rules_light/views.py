@@ -19,7 +19,9 @@ class RegistryView(generic.TemplateView):
         url(r'^rules/', include('rules_light.urls')),
 
     Note: view requires ``'rules_light.rule.read'`` which is enabled for admins
-    by default.
+    by default. Also notice that the template for this view uses ``{{ STATIC_URL }}`` 
+    so you'll need to have ``django.template.context_processors.static`` to your 
+    template ``context_processors`` to render it properly..
     """
 
     template_name = 'rules_light/registry.html'
