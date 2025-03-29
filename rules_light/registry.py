@@ -38,7 +38,7 @@ class RuleRegistry(dict):
         """
         Adds a debug-level log on registration.
         """
-        super(RuleRegistry, self).__setitem__(key, value)
+        super().__setitem__(key, value)
         self.logger.debug(u'[rules_light] "%s" registered with: %s' % (
             key, self.rule_text_name(value)))
 
