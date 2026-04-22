@@ -71,7 +71,7 @@ class RuleRegistry(dict):
 
         if not result:
             text = self.as_text(user, name, *args, **kwargs)
-            self.logger.warn(u'[rules_light] Deny %s' % text)
+            self.logger.warning(u'[rules_light] Deny %s' % text)
             raise Denied(text)
 
     def as_text(self, user, name, *args, **kwargs):

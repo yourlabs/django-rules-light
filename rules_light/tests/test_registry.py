@@ -12,7 +12,7 @@ import rules_light
 class RegistryTestCase(unittest.TestCase):
     def setUp(self):
         self.registry = rules_light.RuleRegistry()
-        self.registry.logger = Mock(spec_set=['debug', 'info', 'warn', 'error'])
+        self.registry.logger = Mock(spec_set=['debug', 'info', 'warning', 'error'])
         self.user, c = User.objects.get_or_create(username='test')
 
     def test_run_rule_no_args(self):
@@ -49,7 +49,7 @@ class RegistryTestCase(unittest.TestCase):
         with self.assertRaises(rules_light.Denied):
             self.registry.require(self.user, 'x.y.z')
 
-        self.registry.logger.warn.assert_called_once_with(
+        self.registry.logger.warning.assert_called_once_with(
             u'[rules_light] Deny Mock(test, "x.y.z")')
 
     def test_return_False(self):
