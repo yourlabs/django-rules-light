@@ -18,7 +18,7 @@ Contents:
    class_decorator
    middleware
    shortcuts
-   decorators
+   decorator
    logging
    debug
    testing
