@@ -1,10 +1,11 @@
-import os, sys
+import os, sys, subprocess
 from setuptools import setup
 
 if 'sdist' in sys.argv:
-    dir = os.getcwd()
-    os.chdir(os.path.join(dir, 'rules_light'))
-    os.system('django-admin compilemessages')
-    os.chdir(dir)
+    subprocess.run(
+        ['django-admin', 'compilemessages'],
+        check=True,
+        cwd=os.path.join(os.path.dirname(__file__), 'rules_light'),
+    )
 
 setup()
