@@ -8,7 +8,7 @@ Either install the last release::
 
     pip install django-rules-light
 
-Either install a development version::
+Or install a development version::
 
     pip install -e git+https://github.com/yourlabs/django-rules-light.git#egg=django-rules-light
 
@@ -18,14 +18,14 @@ Middleware
 ``````````
 
 To enable the middleware that processes ``rules_light.Denied``
-exception, add to ``setings.MIDDLEWARE_CLASSES`` or ``settings.MIDDLEWARE`` for Django >= 1.10:
+exception, add to ``settings.MIDDLEWARE``:
 
 .. code-block:: python
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = [
         # ...
         'rules_light.middleware.Middleware',
-    )
+    ]
 
 See :doc:`docs on middleware</middleware>` for more details.
 
@@ -72,7 +72,7 @@ Then the view should be usable, install it as such:
 
 .. code-block:: python
 
-    url(r'^rules/', include('rules_light.urls')),
+    path('rules/', include('rules_light.urls')),
 
 See :doc:`docs on debugging</debug>` for more details on debugging rules.
 
