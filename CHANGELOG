@@ -27,6 +27,18 @@ CI:
 - Replace Travis CI with GitHub Actions
 - Add lint job (ruff) and docs job (sphinx-build -W)
 - Update tox to Python 3.10–3.14, Django 4.2–6.0, pytest
+- Fix build-backend: switch from setuptools.backends.legacy (requires
+  setuptools >= 68) to the universally supported setuptools.build_meta;
+  add pip/setuptools upgrade step to avoid version-mismatch failures
+- Fix legacy django.conf.urls.url() (removed in Django 4.0): replace
+  with re_path() from django.urls in test_project/urls.py
+- Fix logger.warn() deprecation: rename to logger.warning() in registry.py
+- Fix ruff F401 lint errors: use explicit re-export syntax (X as X) in
+  __init__.py, replace star import with named imports in tests, remove
+  unused imports and unused `as cm` aliases across test files
+- Upgrade actions/checkout v4 → v6 and actions/setup-python v5 → v6
+  (both now run on Node.js 24, eliminating the Node.js 20 deprecation
+  warning ahead of the June 2026 forced cutover)
 
 0.3.2 Django 4.1.x support
 
