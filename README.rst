@@ -1,9 +1,7 @@
-.. image:: https://secure.travis-ci.org/yourlabs/django-rules-light.png?branch=master
-    :target: http://travis-ci.org/yourlabs/django-rules-light
-.. image:: https://img.shields.io/pypi/dm/django-rules-light.svg
-    :target: https://crate.io/packages/django-rules-light
-.. image:: https://img.shields.io/pypi/v/django-rules-light.svg   
-    :target: https://crate.io/packages/django-rules-light
+.. image:: https://img.shields.io/pypi/v/django-rules-light.svg
+    :target: https://pypi.org/project/django-rules-light/
+.. image:: https://img.shields.io/github/actions/workflow/status/yourlabs/django-rules-light/ci.yml?branch=master
+    :target: https://github.com/yourlabs/django-rules-light/actions
 
 This is a simple alternative to django-rules. Its core difference is that
 it does not rely on models. Instead, it uses a registry which can be
@@ -69,15 +67,15 @@ This means you have to:
 Requirements
 ------------
 
-- Python 2.7+ (Python 3 supported)
-- Django 1.8+
+- Python 3.10+
+- Django 4.2+
 
 Quick Install
 -------------
 
 - Install module: ``pip install django-rules-light``,
 - Add to ``settings.INSTALLED_APPS``: ``rules_light``,
-- Add in ``settings.MIDDLEWARE_CLASSES`` (or ``settings.MIDDLEWARE`` for Django 1.10+): ``rules_light.middleware.Middleware``,
+- Add in ``settings.MIDDLEWARE``: ``rules_light.middleware.Middleware``,
 
 
 You might want to read the `tutorial
@@ -91,8 +89,8 @@ Contributing
 
 Run tests with the `tox
 <https://pypi.python.org/pypi/tox>`_ command. Documented patches passing all
-tests have a better chance to get merged in. See `community guidelines
-<http://docs.yourlabs.org>`_ for details.
+tests have a better chance to get merged in. See the `contributing guidelines
+<https://github.com/yourlabs/django-rules-light/blob/master/CONTRIBUTING.rst>`_ for details.
 
 Resources
 ---------
@@ -113,5 +111,5 @@ subscribe to the mailing list.
   <http://pypi.python.org/pypi/django-rules-light/>`_ by `PyPi
   <http://pypi.python.org/pypi>`_,
 - `Continuous integration graciously hosted
-  <http://travis-ci.org/yourlabs/django-rules-light>`_ by `Travis-ci
-  <http://travis-ci.org>`_
+  <https://github.com/yourlabs/django-rules-light/actions>`_ by `GitHub Actions
+  <https://github.com/features/actions>`_

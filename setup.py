@@ -38,7 +38,7 @@ if 'sdist' in sys.argv:
 
 setup(
     name='django-rules-light',
-    version='0.3.2',
+    version='0.4.0',
     description='Rule registry for django',
     author='James Pic',
     author_email='jamespic@gmail.com',
@@ -51,7 +51,6 @@ setup(
     license='MIT',
     keywords='django security rules acl rbac',
     install_requires=[
-        'six',
         'django-classy-tags',
     ],
     classifiers=[
@@ -60,8 +59,17 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
+        'Framework :: Django',
+        'Framework :: Django :: 4.2',
+        'Framework :: Django :: 5.1',
+        'Framework :: Django :: 5.2',
+        'Framework :: Django :: 6.0',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ]
 )

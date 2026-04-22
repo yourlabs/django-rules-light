@@ -7,4 +7,4 @@ from .shortcuts import is_authenticated, is_staff
 
 default_app_config = 'rules_light.apps.RulesLightConfig'
 
-__version__ = (0, 2, 0)
+__version__ = (0, 4, 0)

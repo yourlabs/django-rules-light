@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "django-rules-light"
+version = "0.4.0"
+description = "Rule registry for django"
+readme = "README.rst"
+license = {text = "MIT"}
+authors = [
+    {name = "James Pic", email = "jamespic@gmail.com"},
+]
+keywords = ["django", "security", "rules", "acl", "rbac"]
+requires-python = ">=3.10"  # 3.10/3.11 for Django 4.2–5.2; 3.12+ for Django 6.0
+dependencies = [
+    "django-classy-tags",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourlabs/django-rules-light"
+Documentation = "https://django-rules-light.readthedocs.io/"
