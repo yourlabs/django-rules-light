@@ -8,16 +8,10 @@ default RuleRegistry instance.
 
 A rule can be a callback or a variable that will be evaluated as bool.
 """
-from __future__ import unicode_literals
-
 import logging
 
-from django.utils.encoding import smart_str as smart_text
-
-try:
-    from django.utils.module_loading import autodiscover_modules
-except ImportError:
-    autodiscover_modules = None
+from django.utils.encoding import smart_str
+from django.utils.module_loading import autodiscover_modules
 
 from .exceptions import Denied, DoesNotExist
 
@@ -38,7 +32,7 @@ class RuleRegistry(dict):
         """
         Adds a debug-level log on registration.
         """
-        super(RuleRegistry, self).__setitem__(key, value)
+        super().__setitem__(key, value)
         self.logger.debug(u'[rules_light] "%s" registered with: %s' % (
             key, self.rule_text_name(value)))
 
@@ -87,11 +81,11 @@ class RuleRegistry(dict):
 
         formated_args = []
         for arg in args:
-            formated_args.append(u'"%s"' % smart_text(arg))
+            formated_args.append(u'"%s"' % smart_str(arg))
 
         for key, value in kwargs.items():
-            formated_args.append(u'%s="%s"' % (smart_text(key),
-                smart_text(value)))
+            formated_args.append(u'%s="%s"' % (smart_str(key),
+                smart_str(value)))
         formated_args = u', '.join(formated_args)
 
         if hasattr(self[name], '__call__'):
@@ -106,9 +100,7 @@ class RuleRegistry(dict):
             return u'%s is %s' % (name, self[name])
 
     def rule_text_name(self, rule):
-        if hasattr(rule, 'func_name'):
-            return rule.func_name
-        elif rule is True:
+        if rule is True:
             return u'True'
         elif rule is False:
             return u'False'
@@ -117,7 +109,7 @@ class RuleRegistry(dict):
         elif hasattr(rule, '__class__'):
             return rule.__class__.__name__
         else:
-            return smart_text(rule)
+            return smart_str(rule)
 
 
 registry = RuleRegistry()
@@ -131,33 +123,6 @@ def run(user, name, *args, **kwargs):
 def require(user, name, *args, **kwargs):
     """ Proxy ``rules_light.registry.require()``. """
     registry.require(user, name, *args, **kwargs)
-
-
-def _autodiscover(registry):
-    """See documentation for autodiscover (without the underscore)"""
-    import copy
-    from django.conf import settings
-    from django.utils.importlib import import_module
-    from django.utils.module_loading import module_has_submodule
-
-    for app in settings.INSTALLED_APPS:
-        mod = import_module(app)
-        # Attempt to import the app's admin module.
-        try:
-            before_import_registry = copy.copy(registry)
-            import_module('%s.rules_light_registry' % app)
-        except Exception:
-            # Reset the model registry to the state before the last import as
-            # this import will have to reoccur on the next request and this
-            # could raise NotRegistered and AlreadyRegistered exceptions
-            # (see #8245).
-            registry = before_import_registry
-
-            # Decide whether to bubble up this error. If the app just
-            # doesn't have an admin module, we can ignore the error
-            # attempting to import it, otherwise we want it to bubble up.
-            if module_has_submodule(mod, 'rules_light_registry'):
-                raise
 
 
 def autodiscover():
@@ -189,7 +154,4 @@ def autodiscover():
     `'cities_light.city.read'` and `'cities_light.city.update'` will be
     registered.
     """
-    if autodiscover_modules:
-        autodiscover_modules('rules_light_registry')
-    else:
-        _autodiscover(registry)
+    autodiscover_modules('rules_light_registry')

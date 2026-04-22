@@ -4,7 +4,7 @@ This module enables piling rules on each others.
 Consider this simple rule::
 
     def is_authenticated(user, *args, **kwargs):
-        return user and user.is_authenticated()
+        return user and user.is_authenticated
 
 It can of course be used directly::
 
@@ -14,7 +14,7 @@ But if defined using ``make_decorator`` as such::
 
     @rules_light.make_decorator
     def is_authenticated(user, *args, **kwargs):
-        return user and user.is_authenticated()
+        return user and user.is_authenticated
 
 Then you can use it to decorate other rules too::
 
@@ -25,9 +25,6 @@ Then you can use it to decorate other rules too::
     rules_light.registry['do_something'] = my_book
 
 """
-from __future__ import unicode_literals
-
-
 def make_decorator(_rule):
     def _decorator(*args, **kwargs):
         if len(args) == 1 and len(kwargs) == 0:

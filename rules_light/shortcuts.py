@@ -22,8 +22,6 @@ too (see ``make_decorator``)::
 
     rules_light.registry.setdefault('your_app.your_model.update', my_book)
 """
-from __future__ import unicode_literals
-
 from .decorators import make_decorator
 
 __all__ = ['is_staff', 'is_authenticated']
@@ -67,9 +65,6 @@ def is_staff(user, rulename, *args, **kwargs):
 @make_decorator
 def is_authenticated(user, rulename, *args, **kwargs):
     """
-    Return user.is_authenticated().
+    Return True if user.is_authenticated.
     """
-    try:
-        return user and user.is_authenticated()
-    except Exception:
-        return user and user.is_authenticated
+    return user and user.is_authenticated

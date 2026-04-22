@@ -1,10 +1,6 @@
 """
 
 """
-from __future__ import unicode_literals
-import six
-
-import django
 from django.views import generic
 
 from .exceptions import RulesLightException
@@ -64,12 +60,8 @@ class class_decorator(object):
     def __new__(self, *args):
         if hasattr(args[0], 'as_view'):
             cls = args[0]
-        elif isinstance(args[0], six.string_types):
-            if six.PY2:
-                decorator_name = b'new_class_decorator'
-            elif six.PY3:
-                decorator_name = 'new_class_decorator'
-
+        elif isinstance(args[0], str):
+            decorator_name = 'new_class_decorator'
             new_class_decorator = type(decorator_name,
                 (class_decorator,), {'rule': args[0]})
             return new_class_decorator
@@ -81,33 +73,18 @@ class class_decorator(object):
         if issubclass(cls, generic.CreateView):
             old_get_form = cls.get_form
 
-            if django.VERSION >= (1, 8):
-                def new_get_form(self, *args, **kwargs):
-                    model = self.get_form_class().Meta.model
-                    try:
-                        model_name = model._meta.model_name
-                    except AttributeError:
-                        model_name = model._meta.module_name
-                    rule_name = '%s.%s.create' % (model._meta.app_label,
-                        model_name)
+            def new_get_form(self, *args, **kwargs):
+                model = self.get_form_class().Meta.model
+                try:
+                    model_name = model._meta.model_name
+                except AttributeError:
+                    model_name = model._meta.module_name
+                rule_name = '%s.%s.create' % (model._meta.app_label,
+                    model_name)
 
-                    registry.require(self.request.user, rule_name)
+                registry.require(self.request.user, rule_name)
 
-                    return old_get_form(self, *args, **kwargs)
-
-            else:
-                def new_get_form(self, form_class, *args, **kwargs):
-                    model = form_class.Meta.model
-                    try:
-                        model_name = model._meta.model_name
-                    except AttributeError:
-                        model_name = model._meta.module_name
-                    rule_name = '%s.%s.create' % (model._meta.app_label,
-                        model_name)
-
-                    registry.require(self.request.user, rule_name)
-
-                    return old_get_form(self, form_class, *args, **kwargs)
+                return old_get_form(self, *args, **kwargs)
 
             cls.get_form = new_get_form
 
