@@ -3,8 +3,6 @@ import unittest
 
 from django.test.client import Client
 
-import rules_light
-
 
 @pytest.mark.django_db
 class MiddlewareTestCase(unittest.TestCase):
