@@ -19,12 +19,8 @@ def patch_get_object(cls, suffix, override):
         if self.get_object._rule_override:
             rule_name = self.get_object._rule_override
         else:
-            try:
-                model_name = obj.__class__._meta.model_name
-            except AttributeError:
-                model_name = obj.__class__._meta.module_name
             rule_name = '%s.%s.%s' % (obj.__class__._meta.app_label,
-                model_name, self.get_object._rule_suffix)
+                obj.__class__._meta.model_name, self.get_object._rule_suffix)
 
         registry.require(self.request.user, rule_name, obj)
 
@@ -75,12 +71,8 @@ class class_decorator(object):
 
             def new_get_form(self, *args, **kwargs):
                 model = self.get_form_class().Meta.model
-                try:
-                    model_name = model._meta.model_name
-                except AttributeError:
-                    model_name = model._meta.module_name
-                rule_name = '%s.%s.create' % (model._meta.app_label,
-                    model_name)
+                rule_name = '%s.%s.create' % (
+                    model._meta.app_label, model._meta.model_name)
 
                 registry.require(self.request.user, rule_name)
 

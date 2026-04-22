@@ -22,6 +22,8 @@ urlpatterns = [
         name='auth_user_detail'),
     re_path(r'user/(?P<username>[\w_-]+)/update/$',
         rules_light.class_decorator(generic.UpdateView).as_view(
-            slug_field='username', slug_url_kwarg='username', model=User),
+            slug_field='username', slug_url_kwarg='username', model=User,
+            fields=('first_name', 'last_name', 'email'),
+            success_url='/'),
         name='auth_user_update'),
 ]

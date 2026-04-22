@@ -20,13 +20,13 @@ jobs:
             django-version: "6.0"
           - python-version: "3.11"
             django-version: "6.0"
-          # Python 3.14 is only supported by Django 6.0
+          # Django 4.2 supports Python up to 3.12
+          - python-version: "3.13"
+            django-version: "4.2"
           - python-version: "3.14"
             django-version: "4.2"
           - python-version: "3.14"
             django-version: "5.1"
-          - python-version: "3.14"
-            django-version: "5.2"
 
     steps:
       - uses: actions/checkout@v6

@@ -5,6 +5,4 @@ from .exceptions import Denied as Denied, DoesNotExist as DoesNotExist, RulesLig
 from .middleware import Middleware as Middleware
 from .shortcuts import is_authenticated as is_authenticated, is_staff as is_staff
 
-default_app_config = 'rules_light.apps.RulesLightConfig'
-
 __version__ = (0, 4, 0)
