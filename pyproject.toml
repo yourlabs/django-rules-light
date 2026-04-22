@@ -14,6 +14,7 @@ authors = [
 keywords = ["django", "security", "rules", "acl", "rbac"]
 requires-python = ">=3.10"  # 3.10/3.11 for Django 4.2–5.2; 3.12+ for Django 6.0
 dependencies = [
+    "Django>=4.2",
     "django-classy-tags",
 ]
 classifiers = [

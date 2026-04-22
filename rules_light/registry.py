@@ -33,7 +33,7 @@ class RuleRegistry(dict):
         Adds a debug-level log on registration.
         """
         super().__setitem__(key, value)
-        self.logger.debug(u'[rules_light] "%s" registered with: %s' % (
+        self.logger.debug('[rules_light] "%s" registered with: %s' % (
             key, self.rule_text_name(value)))
 
     def run(self, user, name, *args, **kwargs):
@@ -43,7 +43,7 @@ class RuleRegistry(dict):
         Also logs calls with the info-level.
         """
         if name not in self:
-            self.logger.error(u'[rules_light] Rule does not exist "%s"' % name)
+            self.logger.error('[rules_light] Rule does not exist "%s"' % name)
             raise DoesNotExist(name)
 
         rule = self[name]
@@ -55,10 +55,10 @@ class RuleRegistry(dict):
 
         text = self.as_text(user, name, *args, **kwargs)
         if result:
-            self.logger.info(u'[rules_light] %s passed' % text)
+            self.logger.info('[rules_light] %s passed' % text)
             return True
         else:
-            self.logger.info(u'[rules_light] %s failed' % text)
+            self.logger.info('[rules_light] %s failed' % text)
             return False
 
     def require(self, user, name, *args, **kwargs):
@@ -71,7 +71,7 @@ class RuleRegistry(dict):
 
         if not result:
             text = self.as_text(user, name, *args, **kwargs)
-            self.logger.warning(u'[rules_light] Deny %s' % text)
+            self.logger.warning('[rules_light] Deny %s' % text)
             raise Denied(text)
 
     def as_text(self, user, name, *args, **kwargs):
@@ -81,29 +81,29 @@ class RuleRegistry(dict):
 
         formated_args = []
         for arg in args:
-            formated_args.append(u'"%s"' % smart_str(arg))
+            formated_args.append('"%s"' % smart_str(arg))
 
         for key, value in kwargs.items():
-            formated_args.append(u'%s="%s"' % (smart_str(key),
+            formated_args.append('%s="%s"' % (smart_str(key),
                 smart_str(value)))
-        formated_args = u', '.join(formated_args)
+        formated_args = ', '.join(formated_args)
 
         if hasattr(self[name], '__call__'):
             text_name = self.rule_text_name(self[name])
 
             if formated_args:
-                return u'%s(%s, "%s", %s)' % (text_name, user, name,
+                return '%s(%s, "%s", %s)' % (text_name, user, name,
                                               formated_args)
             else:
-                return u'%s(%s, "%s")' % (text_name, user, name)
+                return '%s(%s, "%s")' % (text_name, user, name)
         else:
-            return u'%s is %s' % (name, self[name])
+            return '%s is %s' % (name, self[name])
 
     def rule_text_name(self, rule):
         if rule is True:
-            return u'True'
+            return 'True'
         elif rule is False:
-            return u'False'
+            return 'False'
         elif hasattr(rule, '__name__'):
             return rule.__name__
         elif hasattr(rule, '__class__'):

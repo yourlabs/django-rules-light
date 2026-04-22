@@ -72,6 +72,8 @@ Then the view should be usable, install it as such:
 
 .. code-block:: python
 
+    from django.urls import include, path
+
     path('rules/', include('rules_light.urls')),
 
 See :doc:`docs on debugging</debug>` for more details on debugging rules.

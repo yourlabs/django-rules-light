@@ -27,7 +27,7 @@ CI:
 - Replace Travis CI with GitHub Actions
 - Add lint job (ruff) and docs job (sphinx-build -W)
 - Update tox to Python 3.10–3.14, Django 4.2–6.0, pytest
-- Fix build-backend: switch from setuptools.backends.legacy (requires
+- Fix build-backend: switch from setuptools.build_meta:__legacy__ (requires
   setuptools >= 68) to the universally supported setuptools.build_meta;
   add pip/setuptools upgrade step to avoid version-mismatch failures
 - Fix legacy django.conf.urls.url() (removed in Django 4.0): replace
