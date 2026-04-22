@@ -38,6 +38,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pip install --upgrade pip setuptools wheel
           pip install "Django==${{ matrix.django-version }}.*" pytest pytest-django mock django-classy-tags
           pip install -e .
 

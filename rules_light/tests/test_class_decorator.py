@@ -6,9 +6,7 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import User
 
 import rules_light
-from rules_light.views import RegistryView
-
-from .fixtures.class_decorator_classes import *
+from .fixtures.class_decorator_classes import CreateView, UpdateView, DetailView, DeleteView, FunnyUpdateView
 
 
 @pytest.mark.django_db
@@ -21,7 +19,7 @@ class ClassDecoratorTestCase(unittest.TestCase):
         rules_light.registry['auth.user.create'] = False
         view = CreateView.as_view()
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.request)
 
         rules_light.registry['auth.user.create'] = True
@@ -32,7 +30,7 @@ class ClassDecoratorTestCase(unittest.TestCase):
         rules_light.registry['auth.user.update'] = False
         view = UpdateView.as_view()
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.request, pk=1)
 
         rules_light.registry['auth.user.update'] = True
@@ -43,7 +41,7 @@ class ClassDecoratorTestCase(unittest.TestCase):
         rules_light.registry['auth.user.read'] = False
         view = DetailView.as_view()
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.request, pk=1)
 
         rules_light.registry['auth.user.read'] = True
@@ -54,7 +52,7 @@ class ClassDecoratorTestCase(unittest.TestCase):
         rules_light.registry['auth.user.delete'] = False
         view = DeleteView.as_view()
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.request, pk=1)
 
         rules_light.registry['auth.user.delete'] = True
@@ -68,7 +66,7 @@ class ClassDecoratorTestCase(unittest.TestCase):
         rules_light.registry['auth.user.read'] = True
         view = FunnyUpdateView.as_view()
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.request, pk=1)
 
         rules_light.registry['funny'] = True
@@ -83,7 +81,7 @@ class ClassDecoratorTestCase(unittest.TestCase):
             pass
         view = MyView.as_view()
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.request)
 
         rules_light.registry['foo'] = True
@@ -91,7 +89,7 @@ class ClassDecoratorTestCase(unittest.TestCase):
         view(self.request)
 
     def test_fail(self):
-        with self.assertRaises(rules_light.RulesLightException) as cm:
+        with self.assertRaises(rules_light.RulesLightException):
             @rules_light.class_decorator
             class MyView(generic.View):
                 pass

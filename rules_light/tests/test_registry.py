@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import logging
 import pytest
 import unittest
 from mock import Mock
@@ -47,7 +46,7 @@ class RegistryTestCase(unittest.TestCase):
         mock = Mock(return_value=False, spec_set=['__call__'])
         self.registry['x.y.z'] = mock
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             self.registry.require(self.user, 'x.y.z')
 
         self.registry.logger.warn.assert_called_once_with(
@@ -62,7 +61,7 @@ class RegistryTestCase(unittest.TestCase):
             u'[rules_light] Mock(test, "x.y.z") failed')
 
     def test_raises_RuleDoesNotExist(self):
-        with self.assertRaises(rules_light.DoesNotExist) as cm:
+        with self.assertRaises(rules_light.DoesNotExist):
             self.registry.run(self.user, 'x')
 
         self.registry.logger.error.assert_called_once_with(

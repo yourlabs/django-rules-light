@@ -31,10 +31,10 @@ class ViewsTestCase(unittest.TestCase):
     def test_registry_view(self):
         view = RegistryView.as_view()
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.anonymous_request)
 
-        with self.assertRaises(rules_light.Denied) as cm:
+        with self.assertRaises(rules_light.Denied):
             view(self.user_request)
 
         # it should not raise an exception
