@@ -1,3 +1,33 @@
+0.4.0 Python 3 only — Django 4.2 / 5.x / 6.x support
+
+Compatibility:
+- Requires Python 3.10+ and Django 4.2+
+- Tested against Python 3.10–3.14 × Django 4.2, 5.1, 5.2, 6.0
+- Django 6.0 requires Python 3.12+; Python 3.14 is supported on Django 6.0 only
+
+Bug fixes:
+- Remove dependency on `six` (class_decorator.py): replace
+  six.string_types with str, drop Python 2 / Python 3 branch
+- Fix smart_text → smart_str throughout registry.py (smart_text alias
+  was removed in Django 4.0)
+- Fix user.is_authenticated: drop try/except workaround and use the
+  boolean attribute directly (method form removed in Django 2.0)
+- Remove _autodiscover() which imported django.utils.importlib (removed
+  in Django 1.9); simplify autodiscover() to a single call
+- Remove func_name attribute check in rule_text_name() (Python 2 only)
+- Remove dead code for Django < 1.8 in class_decorator.py and
+  middleware.py, and for Django < 1.7 in tests/__init__.py
+
+Modernisation:
+- Drop `from __future__ import unicode_literals` from all source files
+- Modernise super() calls (drop explicit ClassName, self arguments)
+- Migrate packaging to pyproject.toml (PEP 517, setuptools >= 61)
+
+CI:
+- Replace Travis CI with GitHub Actions
+- Add lint job (ruff) and docs job (sphinx-build -W)
+- Update tox to Python 3.10–3.14, Django 4.2–6.0, pytest
+
 0.3.2 Django 4.1.x support
 
 0.3.1 Django 4.x support
